@@ -9,7 +9,6 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { GiArchiveRegister } from "react-icons/gi";
 import { MdLogin } from "react-icons/md";
-import { BiLogoGoogle } from "react-icons/bi";
 import loginImg from '../../assets/login.svg'
 import GoogleLogin from "../../Components/GoogleLogin/GoogleLogin";
 const LogIn = () => {

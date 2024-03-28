@@ -38,7 +38,7 @@ const NavBar = () => {
                     </span>
                 </Typography>
             </NavLink>
-            <NavLink to={'/allProducts'}>
+            <NavLink to={'/YourForms'}>
                 <Typography
                     as="li"
                     variant="small"
@@ -50,7 +50,7 @@ const NavBar = () => {
                     </span>
                 </Typography>
             </NavLink>
-            <NavLink to={'addProduct'}>
+            <NavLink to={'/createForm'}>
                 <Typography
                     as="li"
                     variant="small"
