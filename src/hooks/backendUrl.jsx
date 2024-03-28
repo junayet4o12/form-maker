@@ -1,0 +1,1 @@
+export const backendUrl = 'https://tech-hub-backend.vercel.app'
