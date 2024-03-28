@@ -1,22 +1,20 @@
 import React, { useState } from "react";
-import techHubLogo from '../../assets/TechHubLogo.png'
+import FormifyLogo from '../../assets/FormifyLogo.png'
 import {
     Navbar,
-    MobileNav,
     Typography,
     Button,
     IconButton,
-    Card,
     Collapse,
 } from "@material-tailwind/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import NavProfile from "./NavProfile";
 import useAuth from "../../hooks/useAuth";
-import { FaHome } from "react-icons/fa";
-import { MdAddShoppingCart, MdOutlineProductionQuantityLimits } from "react-icons/md";
-import { BsMenuButtonWideFill } from "react-icons/bs";
+import { FaHome, FaWpforms } from "react-icons/fa";
+import { IoCreateOutline } from "react-icons/io5";
 const NavBar = () => {
     const [openNav, setOpenNav] = useState(false);
+    const navigate = useNavigate()
     const { user } = useAuth()
     React.useEffect(() => {
         window.addEventListener(
@@ -36,7 +34,7 @@ const NavBar = () => {
                     className="p-1 font-normal navlink transition-all duration-500"
                 >
                     <span className="flex items-center gap-x-1">
-                      <FaHome/>  Home
+                        <FaHome />  Home
                     </span>
                 </Typography>
             </NavLink>
@@ -48,19 +46,7 @@ const NavBar = () => {
                     className="p-1 font-normal navlink transition-all duration-500"
                 >
                     <span className="flex items-center gap-x-1">
-                    <MdOutlineProductionQuantityLimits />   All Products
-                    </span>
-                </Typography>
-            </NavLink>
-            <NavLink to={'yourProducts'}>
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-normal navlink transition-all duration-500"
-                >
-                    <span className="flex items-center gap-x-1">
-                    <BsMenuButtonWideFill />  Your Products
+                        <FaWpforms />   Your Forms
                     </span>
                 </Typography>
             </NavLink>
@@ -72,7 +58,7 @@ const NavBar = () => {
                     className="p-1 font-normal navlink transition-all duration-500"
                 >
                     <span className="flex items-center gap-x-1">
-                    <MdAddShoppingCart />   Add Product
+                        <IoCreateOutline />   Create Form
                     </span>
                 </Typography>
             </NavLink>
@@ -84,11 +70,11 @@ const NavBar = () => {
             <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
                 <div className="flex items-center justify-between text-blue-gray-900">
                     <Typography
-                        as="a"
-                        href="#"
-                        className="mr-4 cursor-pointer py-1.5 font-medium"
+                        onClick={() => navigate('/')}
+
+                        className="mr-4 cursor-pointer  font-medium"
                     >
-                        <img className="w-16" src={techHubLogo} alt="" />
+                        <img className="w-16" src={FormifyLogo} alt="" />
                     </Typography>
                     <div className="flex items-center gap-4">
                         <div className="mr-4 hidden lg:flex gap-2">{navList}</div>
@@ -148,7 +134,7 @@ const NavBar = () => {
                     </div>
                 </div>
                 <Collapse open={openNav}>
-                    {navList}  
+                    {navList}
                     {
                         !user && <div className="flex items-center gap-x-1">
                             <NavLink to={'/login'}>
