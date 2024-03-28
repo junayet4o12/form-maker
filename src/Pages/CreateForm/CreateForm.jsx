@@ -7,9 +7,13 @@ import Swal from 'sweetalert2';
 import CreatedForm from './CreatedForm';
 import ComponentsTitle from '../../Shared/ComponentsTitle';
 import { useState } from 'react';
+import { TiTickOutline } from "react-icons/ti";
 const CreateForm = () => {
-    const [formTitle, setFormTitle] = useState('');
     const [inputFields, setInputFields] = useState([])
+    const [formTitle, setFormTitle] = useState('');
+    const [fieldType, setFieldType] = useState('Input')
+    const [selectedField, setSelectedField] = useState([]);
+    const [selectedFieldValue, setSelectedFieldValue] = useState('')
     const { register, handleSubmit, watch, reset, formState: { errors }, } = useForm()
 
     // imgBB image hosting api link  st
@@ -18,15 +22,80 @@ const CreateForm = () => {
         e.preventDefault();
         setFormTitle(e.target.value)
     }
+    const handleFieldType = (e) => {
+        e.preventDefault();
+        setFieldType(e.target.value)
+        console.log(fieldType);
+
+    }
+    const handleSelectedFieldValue = (e) => {
+        e.preventDefault();
+        setSelectedFieldValue(e.target.value)
+    }
+    const handleStoreSelectedValue = () => {
+        if (selectedFieldValue) {
+            const newSelectedValue = {
+                id: new Date().getTime(),
+                value: selectedFieldValue
+            }
+            setSelectedField([...selectedField, newSelectedValue])
+            setSelectedFieldValue('')
+        }
+    }
+    const handleDeleteSelectedField = (id) => {
+        console.log(id);
+        const newSelectedField = selectedField.filter(field => field.id !== id)
+        console.log(newSelectedField.length);
+        setSelectedField(newSelectedField)
+    }
     const onSubmit = async (data) => {
         const label = data?.label;
-        const type = data?.type;
+        const type = fieldType;
         const inputType = data?.inputType;
-        const inputFieldData = {
-            label, type, inputType
+        const required = data?.required === 'No' ? false : true;
+        let inputFieldData = {};
+        console.log(type);
+        if (type === 'Input') {
+            inputFieldData = {
+                label, type, inputType
+            }
+        } else if (type === 'Textarea') {
+            inputFieldData = {
+                label, type
+            }
+        } else if (type === 'Select') {
+            if (selectedField.length < 1) {
+                return console.log('not allowed');
+            }
+            inputFieldData = {
+                label, type, fields: selectedField
+            }
         }
-        console.log(inputFieldData);
-        setInputFields([...inputFields, inputFieldData])
+
+
+        Swal.fire({
+            title: "Are you sure to create this input field?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Create."
+        }).then((result) => {
+            if (result.isConfirmed) {
+                inputFieldData = {
+                    ...inputFieldData,
+                    id: new Date().getTime(),
+                    requirement: required
+                }
+                console.log(inputFieldData);
+                setInputFields([...inputFields, inputFieldData])
+                reset()
+                setFieldType('Input')
+                setSelectedField([])
+            }
+        });
+
+
     }
     return (
         <div>
@@ -45,7 +114,7 @@ const CreateForm = () => {
                         <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col '>
                             <div className='text-base font-medium'>
                                 Create Input Field
-                            </div> 
+                            </div>
                             <div className="relative w-full min-w-[200px] flex flex-col gap-2">
                                 <label className='ml-1'>Label</label>
                                 <input
@@ -55,17 +124,17 @@ const CreateForm = () => {
                             <div className="relative w-full min-w-[200px] flex flex-col gap-2">
                                 <label className='ml-1'>Type</label>
                                 <select
-                                    {...register("type", { required: true })}
+                                    onChange={handleFieldType}
                                     placeholder="Type" className="select select-primary w-full h-11">
                                     <option>Input</option>
                                     <option>Textarea</option>
                                     <option>Select</option>
                                 </select>
                             </div>
-                            <div className="relative w-full min-w-[200px] flex flex-col gap-2">
+                            <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Input' ? 'flex' : 'hidden'}`}>
                                 <label className='ml-1'>Input Type</label>
                                 <select
-                                    {...register("inputType", { required: true })}
+                                    {...register("inputType")}
                                     placeholder="Input Type" className="select select-primary w-full h-11">
                                     <option>text</option>
                                     <option>number</option>
@@ -78,13 +147,41 @@ const CreateForm = () => {
                                     <option>submit</option>
                                 </select>
                             </div>
+                            <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Select' ? 'flex' : 'hidden'}`}>
+                                <label className='ml-1'>Selected Field</label>
+                                <div className={`w-full min-h-5 p-1 rounded-md ${selectedField.length > 0 ? 'gap-2 flex flex-wrap' : 'hidden'}`}>
+                                    {
+                                        selectedField.map(field => <span key={field.id} className='bg-blue-700 text-white px-1 rounded flex gap-2 justify-center items-center'><span
+                                            onClick={() => handleDeleteSelectedField(field?.id)}
+                                            className='text-xs bg-white text-black rounded-md px-[2px] cursor-pointer hover:bg-gray-200 transition-all duration-300 active:scale-90'>X</span> {field.value}</span>)
+                                    }
+                                </div>
+                                <input
+                                    onChange={handleSelectedFieldValue}
+                                    value={selectedFieldValue}
+                                    placeholder="SelectedField" className="input input-primary w-full h-11" />
+                                <div
+                                    onClick={handleStoreSelectedValue}
+                                    className='w-max border border-black px-2 h-11 flex justify-center items-center rounded-r-lg absolute bottom-0 right-0 hover:bg-gray-300 transition-all duration-300 cursor-pointer active:scale-90'>
+                                    <p className='text-2xl'><TiTickOutline /></p>
+                                </div>
+                            </div>
+                            <div className="relative w-full min-w-[200px] flex flex-col gap-2">
+                                <label className='ml-1'>Required</label>
+                                <select
+                                    {...register("required")}
+                                    placeholder="Required" className="select select-primary w-full h-11">
+                                    <option>No</option>
+                                    <option>Yes</option>
+                                </select>
+                            </div>
                             <div className='text-center'>
                                 <button className='btn btn-neutral bg-primary/90 hover:bg-primary text-sm font-bold  text-white border-none w-[140px] h-10' type='submit'>Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <CreatedForm formTitle={formTitle} inputFields={inputFields} />
+                <CreatedForm formTitle={formTitle} inputFields={inputFields} setInputFields={setInputFields} />
             </div>
         </div>
     );
