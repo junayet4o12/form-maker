@@ -2,15 +2,17 @@
 import formBg from '../../assets/formbg.jpg'
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
-import { Input } from '@material-tailwind/react';
+import { Input, Textarea } from '@material-tailwind/react';
 import Swal from 'sweetalert2';
 import CreatedForm from './CreatedForm';
 import ComponentsTitle from '../../Shared/ComponentsTitle';
 import { useState } from 'react';
 import { TiTickOutline } from "react-icons/ti";
+import createCardImg from '../../assets/createForm.jpg'
 const CreateForm = () => {
     const [inputFields, setInputFields] = useState([])
     const [formTitle, setFormTitle] = useState('');
+    const [formDescription, setFormDescription] = useState('');
     const [fieldType, setFieldType] = useState('Input')
     const [selectedField, setSelectedField] = useState([]);
     const [selectedFieldValue, setSelectedFieldValue] = useState('')
@@ -21,6 +23,10 @@ const CreateForm = () => {
     const handleFormTitle = (e) => {
         e.preventDefault();
         setFormTitle(e.target.value)
+    }
+    const handleFormDescription = (e) => {
+        e.preventDefault();
+        setFormDescription(e.target.value)
     }
     const handleFieldType = (e) => {
         e.preventDefault();
@@ -98,23 +104,31 @@ const CreateForm = () => {
 
     }
     return (
-        <div>
+        <div className='mb-10'>
             <ComponentsTitle title1={'Create a Form'} title2={'Through'} title3={'Formify'} description={`Easily design bespoke forms using Formify's intuitive interface. Streamline data collection and enhance collaboration effortlessly. Get started with Formify today!`} />
-            <div className="py-7 px-7 flex ">
-                <div style={{ backgroundImage: `url(${formBg})` }} className="bg-cover bg-center   rounded-md font-bold text-sm w-full max-w-[550px]   mx-auto flex flex-col gap-3 border-[1.5px] border-gray-400 shadow-xl shadow-[#bdb9b9]">
+            <div className=" px-7 flex justify-center gap-10 flex-col-reverse lg:flex-row">
+                <div style={{ backgroundImage: `url(${formBg})` }} className="bg-cover bg-center   rounded-md font-bold text-sm w-full max-w-[550px]   mx-auto flex flex-col gap-3 border-[1.5px] border-gray-400 shadow-xl shadow-[#bdb9b9] ">
                     <div className='h-full w-full p-4 py-7 flex flex-col bg-[#ffffffb3] gap-5 rounded-md '>
                         <h2 className='text-4xl font-bold text-center py-5'>Create your form</h2>
                         <div className='flex gap-4 flex-col '>
                             <div className="relative h-11 w-full min-w-[200px]">
                                 <Input
                                     onChange={handleFormTitle}
+                                    value={formTitle}
                                     label="Form Title" />
                             </div>
+                            <div className="relative w-full min-w-[200px]">
+                                <Textarea
+                                    onChange={handleFormDescription}
+                                    value={formDescription}
+                                    label="Form Description" />
+                            </div>
                         </div>
-                        <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col '>
-                            <div className='text-base font-medium'>
+                        <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col border-2 border-secondary p-2 py-5 rounded-lg'>
+                            <div className='text-lg font-extrabold'>
                                 Create Input Field
                             </div>
+                            <hr className='border border-primary -mx-2' />
                             <div className="relative w-full min-w-[200px] flex flex-col gap-2">
                                 <label className='ml-1'>Label</label>
                                 <input
@@ -181,7 +195,16 @@ const CreateForm = () => {
                         </form>
                     </div>
                 </div>
-                <CreatedForm formTitle={formTitle} inputFields={inputFields} setInputFields={setInputFields} />
+                <div className='w-full relative'>
+                    <div className='w-full sticky top-24 max-h-[400px] overflow-auto'>
+                        <CreatedForm formTitle={formTitle} formDescription={formDescription} setFormDescription={setFormDescription} inputFields={inputFields} setInputFields={setInputFields} setFormTitle={setFormTitle} />
+                        <div className='w-full hidden lg:block'>
+                            <img className={`${!formTitle ? 'block' : 'hidden'} ${inputFields.length < 1 ? 'block' : 'hidden'} w-2/3 mx-auto`} src={createCardImg} alt="" />
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
         </div>
     );

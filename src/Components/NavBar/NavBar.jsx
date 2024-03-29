@@ -26,42 +26,47 @@ const NavBar = () => {
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
 
-            <NavLink to={'/'}>
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-normal navlink transition-all duration-500"
-                >
-                    <span className="flex items-center gap-x-1">
-                        <FaHome />  Home
-                    </span>
-                </Typography>
-            </NavLink>
-            <NavLink to={'/YourForms'}>
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-normal navlink transition-all duration-500"
-                >
-                    <span className="flex items-center gap-x-1">
-                        <FaWpforms />   Your Forms
-                    </span>
-                </Typography>
-            </NavLink>
-            <NavLink to={'/createForm'}>
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-normal navlink transition-all duration-500"
-                >
-                    <span className="flex items-center gap-x-1">
-                        <IoCreateOutline />   Create Form
-                    </span>
-                </Typography>
-            </NavLink>
+
+            {
+                user?.email && <>
+                    <NavLink to={'/'}>
+                        <Typography
+                            as="li"
+                            variant="small"
+                            color="blue-gray"
+                            className="p-1 font-normal navlink transition-all duration-500"
+                        >
+                            <span className="flex items-center gap-x-1">
+                                <FaHome />  Home
+                            </span>
+                        </Typography>
+                    </NavLink>
+                    <NavLink to={'/YourForms'}>
+                        <Typography
+                            as="li"
+                            variant="small"
+                            color="blue-gray"
+                            className="p-1 font-normal navlink transition-all duration-500"
+                        >
+                            <span className="flex items-center gap-x-1">
+                                <FaWpforms />   Your Forms
+                            </span>
+                        </Typography>
+                    </NavLink>
+                    <NavLink to={'/createForm'}>
+                        <Typography
+                            as="li"
+                            variant="small"
+                            color="blue-gray"
+                            className="p-1 font-normal navlink transition-all duration-500"
+                        >
+                            <span className="flex items-center gap-x-1">
+                                <IoCreateOutline />   Create Form
+                            </span>
+                        </Typography>
+                    </NavLink>
+                </>
+            }
         </ul>
     );
 

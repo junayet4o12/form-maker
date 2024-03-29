@@ -9,7 +9,7 @@ const Banner = () => {
     const { user } = useAuth()
     const handleOpen = () => {
         if (user) {
-            navigate('/addProduct')
+            navigate('/createForm')
         }
         else {
             setOpen(true);

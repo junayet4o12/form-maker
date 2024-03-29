@@ -56,7 +56,7 @@ const Register = () => {
 
 
                         }
-                        axiosPublic.post('/users', userInfo)
+                        axiosPublic.post('/addUser', userInfo)
                             .then(res => {
                                 console.log(res);
                                 if (res.statusText=='OK') {

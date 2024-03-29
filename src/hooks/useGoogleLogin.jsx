@@ -20,7 +20,7 @@ const useGoogleLogin = () => {
                     email: res?.user?.email,
                     image: res?.user?.photoURL
                 }
-                axiosPublic.post('/users', userInfo)
+                axiosPublic.post('/addUser', userInfo)
                     .then(res => {
                         console.log(res?.data);
                         Swal.fire({

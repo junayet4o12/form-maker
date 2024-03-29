@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 // import React from 'react';
-
-const CreatedFormInputField = ({ inputField, setInputFields, inputFields }) => {
-    console.log(inputField);
+import { useState } from "react";
+import { GrDocumentUpdate } from "react-icons/gr";
+import UpdateModalForm from "./UpdateModalForm";
+const UpdateFormInputField = ({ inputField, setInputFields, inputFields }) => {
+    const [openModal, setOpenModal] = useState(false)
     const handleDeleteField = () => {
         console.log(inputField?.id);
         setInputFields(inputFields.filter(field => field.id !== inputField.id))
@@ -27,9 +29,11 @@ const CreatedFormInputField = ({ inputField, setInputFields, inputFields }) => {
                 }
 
                 <button onClick={handleDeleteField} className="btn text-xl px-3">X</button>
+                <button onClick={() => setOpenModal(true)} className="btn text-xl px-3"><GrDocumentUpdate /></button>
             </div>
+            <UpdateModalForm open={openModal} setOpen={setOpenModal} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />
         </div>
     );
 };
 
-export default CreatedFormInputField;
+export default UpdateFormInputField;

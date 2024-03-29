@@ -1,1 +1,1 @@
-export const backendUrl = 'https://tech-hub-backend.vercel.app'
+export const backendUrl = 'http://localhost:5000' 

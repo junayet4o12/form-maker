@@ -1,12 +1,7 @@
 /* eslint-disable react/prop-types */
 // import React from 'react';
 
-const CreatedFormInputField = ({ inputField, setInputFields, inputFields }) => {
-    console.log(inputField);
-    const handleDeleteField = () => {
-        console.log(inputField?.id);
-        setInputFields(inputFields.filter(field => field.id !== inputField.id))
-    }
+const InputField = ({ inputField }) => {
     return (
         <div className="relative w-full  flex flex-col gap-2 min-w-[200px] max-w-[500px] mx-auto">
             <label className='ml-1'>{inputField?.label}</label>
@@ -25,11 +20,9 @@ const CreatedFormInputField = ({ inputField, setInputFields, inputFields }) => {
                         }
                     </select>
                 }
-
-                <button onClick={handleDeleteField} className="btn text-xl px-3">X</button>
             </div>
         </div>
     );
 };
 
-export default CreatedFormInputField;
+export default InputField;

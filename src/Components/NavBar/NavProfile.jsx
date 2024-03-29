@@ -8,10 +8,8 @@ import {
   MenuList,
   Typography,
 } from "@material-tailwind/react";
-import { CgProfile } from "react-icons/cg";
 import { LiaSignOutAltSolid } from "react-icons/lia";
-import { MdOutlineDashboard } from "react-icons/md";
-import { MdOutlineConnectWithoutContact } from "react-icons/md";
+import { ImProfile } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
@@ -22,18 +20,18 @@ const NavProfile = ({ navbarColor }) => {
   const navigate = useNavigate();
   const profileMenuItems = [
     {
+      label: "Profile",
+      icon: <ImProfile />,
+    },
+    {
       label: "Sign Out",
       icon: <LiaSignOutAltSolid />,
     },
 
   ];
   const handleAction = (input) => {
-    if (input === "My Profile") {
-      navigate("/dashboard/profile");
-    } else if (input === "Dashboard") {
-      navigate("/dashboard/profile");
-    } else if (input === 'Connected With') {
-      navigate("/dashboard/connected_with")
+    if (input === "Profile") {
+      navigate("/profile");
     } else if (input === "Sign Out") {
       const toastId = toast.loading("Logged Outing...");
       logOut()
@@ -84,7 +82,7 @@ const NavProfile = ({ navbarColor }) => {
               <MenuItem
                 key={label}
                 onClick={() => handleAction(label)}
-                className={`flex items-center gap-2  rounded ${!navbarColor ? 'hover:bg-primary/30 focus:bg-primary/30 active:bg-primary/30' : 'hover:bg-white focus:bg-white active:bg-white'} ${isLastItem && `${navbarColor ?  "bg-white text-black" : "bg-primary/20 "}`}`}>
+                className={`flex items-center gap-2  rounded ${!navbarColor ? 'hover:bg-primary/30 focus:bg-primary/30 active:bg-primary/30' : 'hover:bg-white focus:bg-white active:bg-white'} ${isLastItem && `${navbarColor ? "bg-white text-black" : "bg-primary/20 "}`}`}>
                 <p className={`w-8 h-8 flex justify-center items-center text-xl  `}>
                   {icon}
                 </p>
