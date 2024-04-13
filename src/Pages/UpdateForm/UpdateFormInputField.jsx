@@ -33,7 +33,7 @@ const UpdateFormInputField = ({ inputField, setInputFields, inputFields }) => {
             </div>
             <UpdateModalForm open={openModal} setOpen={setOpenModal} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />
         </div>
-    );
+    ); 
 };
 
 export default UpdateFormInputField;

@@ -83,7 +83,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
             requirement: required,
             id: new Date().getTime()
         }
-
+ 
         setInputFields([...inputFields, inputFieldData])
         setFieldType('Input')
         setInputType('text')
@@ -98,21 +98,21 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
             open={open}
             size={'xs'}
             handler={setOpen}
-            className="max-h-[80vh] overflow-y-auto"
+            className="max-h-[80vh] relative overflow-y-auto border-2 border-black"
 
         >
             <form onSubmit={handleSubmit} className='flex gap-4 flex-col  p-2 py-5 rounded-lg'>
                 <div className='text-lg font-extrabold'>
                     Add Input Field
                 </div>
-                <div className="relative w-full min-w-[200px] flex flex-col gap-2">
+                <div className=" w-full min-w-[200px] flex flex-col gap-2">
                     <label className='ml-1'>Label</label>
                     <input
                         onChange={handleLabel}
                         value={label}
                         type="text" placeholder="Label" className="input input-bordered input-primary w-full h-11" />
                 </div>
-                <div className="relative w-full min-w-[200px] flex flex-col gap-2">
+                <div className=" w-full min-w-[200px] flex flex-col gap-2">
                     <label className='ml-1'>Type</label>
                     <select
                         onChange={handleFieldType}
@@ -123,7 +123,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
                         <option>Select</option>
                     </select>
                 </div>
-                <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Input' ? 'flex' : 'hidden'}`}>
+                <div className={` w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Input' ? 'flex' : 'hidden'}`}>
                     <label className='ml-1'>Input Type</label>
                     <select
                         onChange={handleInputType}
@@ -159,7 +159,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
                         <p className='text-2xl'><TiTickOutline /></p>
                     </div>
                 </div>
-                <div className="relative w-full min-w-[200px] flex flex-col gap-2">
+                <div className=" w-full min-w-[200px] flex flex-col gap-2">
                     <label className='ml-1'>Required</label>
                     <select
                         value={requirement}
@@ -170,7 +170,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
                     </select>
                 </div>
             </form>
-            <DialogFooter>
+            <DialogFooter className="sticky bottom-0 right-0 bg-gray-300 py-2 w-full">
                 <Button
                     variant="text"
                     color="red"
@@ -183,7 +183,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
                     onClick={handleSubmit}
                     className="bg-secondary"
                 >
-                    <span>Update</span>
+                    <span>Add</span>
                 </Button>
             </DialogFooter>
         </Dialog>

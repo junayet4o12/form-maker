@@ -9,6 +9,7 @@ import YourForms from "../Pages/YourForms/YourForms";
 import FormDetails from "../Pages/FormDetails/FormDetails";
 import UpdateForm from "../Pages/UpdateForm/UpdateForm";
 import UserProfile from "../Pages/UserProfile/UserProfile";
+import FillUpForm from "../Pages/FillUpForm/FillUpForm";
 const MyRouts = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +46,10 @@ const MyRouts = createBrowserRouter([
       {
         path: '/createForm',
         element: <PrivateRouts><CreateForm /></PrivateRouts>
+      },
+      {
+        path: '/fillUpForm/:id',
+        element: <FillUpForm/> 
       }
     ]
   },

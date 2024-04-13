@@ -10,9 +10,6 @@ import { useState } from 'react';
 import { TiTickOutline } from "react-icons/ti";
 import createCardImg from '../../assets/createForm.jpg'
 const CreateForm = () => {
-    const [inputFields, setInputFields] = useState([])
-    const [formTitle, setFormTitle] = useState('');
-    const [formDescription, setFormDescription] = useState('');
     const [fieldType, setFieldType] = useState('Input')
     const [selectedField, setSelectedField] = useState([]);
     const [selectedFieldValue, setSelectedFieldValue] = useState('')
@@ -20,94 +17,60 @@ const CreateForm = () => {
 
     // imgBB image hosting api link  st
     // imgBB image hosting api link
-    const handleFormTitle = (e) => {
-        e.preventDefault();
-        setFormTitle(e.target.value)
-    }
-    const handleFormDescription = (e) => {
-        e.preventDefault();
-        setFormDescription(e.target.value)
-    }
-    const handleFieldType = (e) => {
-        e.preventDefault();
-        setFieldType(e.target.value)
-        console.log(fieldType);
-
-    }
-    const handleSelectedFieldValue = (e) => {
-        e.preventDefault();
-        setSelectedFieldValue(e.target.value)
-    }
-    const handleStoreSelectedValue = () => {
-        if (selectedFieldValue) {
-            const newSelectedValue = {
-                id: new Date().getTime(),
-                value: selectedFieldValue
-            }
-            setSelectedField([...selectedField, newSelectedValue])
-            setSelectedFieldValue('')
-        }
-    }
-    const handleDeleteSelectedField = (id) => {
-        console.log(id);
-        const newSelectedField = selectedField.filter(field => field.id !== id)
-        console.log(newSelectedField.length);
-        setSelectedField(newSelectedField)
-    }
-    const onSubmit = async (data) => {
-        const label = data?.label;
-        const type = fieldType;
-        const inputType = data?.inputType;
-        const required = data?.required === 'No' ? false : true;
-        let inputFieldData = {};
-        console.log(type);
-        if (type === 'Input') {
-            inputFieldData = {
-                label, type, inputType
-            }
-        } else if (type === 'Textarea') {
-            inputFieldData = {
-                label, type
-            }
-        } else if (type === 'Select') {
-            if (selectedField.length < 1) {
-                return console.log('not allowed');
-            }
-            inputFieldData = {
-                label, type, fields: selectedField
-            }
-        }
+    // const onSubmit = async (data) => {
+    //     const label = data?.label;
+    //     const type = fieldType;
+    //     const inputType = data?.inputType;
+    //     const required = data?.required === 'No' ? false : true;
+    //     let inputFieldData = {};
+    //     console.log(type);
+    //     if (type === 'Input') {
+    //         inputFieldData = {
+    //             label, type, inputType
+    //         }
+    //     } else if (type === 'Textarea') {
+    //         inputFieldData = {
+    //             label, type
+    //         }
+    //     } else if (type === 'Select') {
+    //         if (selectedField.length < 1) {
+    //             return console.log('not allowed');
+    //         }
+    //         inputFieldData = {
+    //             label, type, fields: selectedField
+    //         }
+    //     }
 
 
-        Swal.fire({
-            title: "Are you sure to create this input field?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Create."
-        }).then((result) => {
-            if (result.isConfirmed) {
-                inputFieldData = {
-                    ...inputFieldData,
-                    id: new Date().getTime(),
-                    requirement: required
-                }
-                console.log(inputFieldData);
-                setInputFields([...inputFields, inputFieldData])
-                reset()
-                setFieldType('Input')
-                setSelectedField([])
-            }
-        });
+    //     Swal.fire({
+    //         title: "Are you sure to create this input field?",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#3085d6",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes, Create."
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             inputFieldData = {
+    //                 ...inputFieldData,
+    //                 id: new Date().getTime(),
+    //                 requirement: required
+    //             }
+    //             console.log(inputFieldData);
+    //             setInputFields([...inputFields, inputFieldData])
+    //             reset()
+    //             setFieldType('Input')
+    //             setSelectedField([])
+    //         }
+    //     });
 
 
-    }
+    // }
     return (
         <div className='mb-10'>
             <ComponentsTitle title1={'Create a Form'} title2={'Through'} title3={'Formify'} description={`Easily design bespoke forms using Formify's intuitive interface. Streamline data collection and enhance collaboration effortlessly. Get started with Formify today!`} />
             <div className=" px-7 flex justify-center gap-10 flex-col-reverse lg:flex-row">
-                <div style={{ backgroundImage: `url(${formBg})` }} className="bg-cover bg-center   rounded-md font-bold text-sm w-full max-w-[550px]   mx-auto flex flex-col gap-3 border-[1.5px] border-gray-400 shadow-xl shadow-[#bdb9b9] ">
+                {/* <div style={{ backgroundImage: `url(${formBg})` }} className="bg-cover bg-center   rounded-md font-bold text-sm w-full max-w-[550px]   mx-auto flex flex-col gap-3 border-[1.5px] border-gray-400 shadow-xl shadow-[#bdb9b9] ">
                     <div className='h-full w-full p-4 py-7 flex flex-col bg-[#ffffffb3] gap-5 rounded-md '>
                         <h2 className='text-4xl font-bold text-center py-5'>Create your form</h2>
                         <div className='flex gap-4 flex-col '>
@@ -194,13 +157,13 @@ const CreateForm = () => {
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> */}
                 <div className='w-full relative'>
-                    <div className='w-full sticky top-24 max-h-[400px] overflow-auto'>
-                        <CreatedForm formTitle={formTitle} formDescription={formDescription} setFormDescription={setFormDescription} inputFields={inputFields} setInputFields={setInputFields} setFormTitle={setFormTitle} />
-                        <div className='w-full hidden lg:block'>
+                    <div className='w-full'>
+                        <CreatedForm  />
+                        {/* <div className='w-full hidden lg:block'>
                             <img className={`${!formTitle ? 'block' : 'hidden'} ${inputFields.length < 1 ? 'block' : 'hidden'} w-2/3 mx-auto`} src={createCardImg} alt="" />
-                        </div>
+                        </div> */}
 
                     </div>
 
