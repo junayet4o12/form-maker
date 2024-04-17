@@ -1,0 +1,62 @@
+/* eslint-disable react/prop-types */
+import { useForm } from "react-hook-form";
+import FillUpFormInputField from "./FillUpFormInputField";
+import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import { useState } from "react";
+import FillUpDataCardsDatum from "../../Shared/FillUpDataCardsDatum";
+import FillUpFormDataCard from "../../Shared/FillUpFormDataCard";
+
+const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
+    const { register, handleSubmit, reset, } = useForm()
+    const imgHostingKey = import.meta.env.VITE_IMG_HOSTING_KEY;
+    const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
+    const { user } = useAuth()
+    const [data, setAllData] = useState([])
+    const [everyData, setEveryData] = useState([])
+    const onSubmit = async (data) => {
+        const promisedData = everyData.map(async ({ key, value, type }) => {
+            let restoredData = {}
+            if (type === "file") {
+                const image = { image: value[0] }
+                console.log(value);
+                const res = await axios.post(imgHostingApi, image, {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                })
+                const imgUrl = res?.data?.data?.display_url;
+                console.log(imgUrl);
+                restoredData = {
+                    key, value: imgUrl, type
+                }
+            }
+            else {
+                restoredData = { key, value, type }
+            }
+            return restoredData
+        })
+
+        const allData = await Promise.all(promisedData);
+        setAllData(allData)
+        const storedData = {
+            ownerEmail: userEmail,
+            formId: _id,
+            storedTime: new Date().getTime(),
+            allData,
+            filledUpUserEmail: user?.email || 'Not logged in'
+        }
+        console.log(storedData);
+    }
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+            {
+                inputFields?.map((inputField, idx) => <FillUpFormInputField inputField={inputField} key={idx} everyData={everyData} setEveryData={setEveryData} />)
+            }
+            <button className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}>Submit</button>
+           
+        </form>
+    );
+};
+
+export default FillUpFormInputFields;

@@ -12,6 +12,7 @@ import formBg from '../../assets/bannerImg.jpg'
 import { BiCopyAlt } from "react-icons/bi";
 import { useState } from "react";
 import { backendUrl } from "../../hooks/backendUrl";
+import { toast } from 'react-hot-toast'
 const FormDetails = () => {
     const { id } = useParams();
     const axiosPublic = useAxiosPublic()
@@ -62,6 +63,9 @@ const FormDetails = () => {
         try {
             await navigator.clipboard.writeText(`http://localhost:5173/fillUpForm/${id}`);
             setIsCopied(true)
+            toast.success('Shared Form link copied successfully!!', {
+                icon: '✌️',
+            })
         } catch (err) {
             console.error('Failed to copy: ', err);
         }
@@ -73,7 +77,7 @@ const FormDetails = () => {
                 <div className="h-full min-h-[200px] max-w-[500px] min-w-[200px] overflow-hidden relative">
                     <img className="w-full h-full object-cover absolute" src={formDetails?.formBgImg || formBg} alt="" />
                 </div>
-                <div className="absolute top-0 w-full text-white bg-black/30 h-full p-4">
+                <div className="absolute top-0 w-full text-white bg-black/50 h-full p-4">
                     <div className="text-3xl font-bold text-center capitalize py-5">{formDetails?.title}</div>
                     <div className="text-lg font-bold capitalize py-5 min-w-[200px] max-w-[500px] mx-auto">{formDetails?.description}</div>
                 </div>

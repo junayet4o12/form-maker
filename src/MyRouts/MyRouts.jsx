@@ -10,6 +10,7 @@ import FormDetails from "../Pages/FormDetails/FormDetails";
 import UpdateForm from "../Pages/UpdateForm/UpdateForm";
 import UserProfile from "../Pages/UserProfile/UserProfile";
 import FillUpForm from "../Pages/FillUpForm/FillUpForm";
+import ThanksMessage from "../Pages/ThanksMessage/ThanksMessage";
 const MyRouts = createBrowserRouter([
   {
     path: "/",
@@ -50,6 +51,10 @@ const MyRouts = createBrowserRouter([
       {
         path: '/fillUpForm/:id',
         element: <FillUpForm/> 
+      },
+      {
+        path: '/thanks/:id',
+        element:<ThanksMessage/>
       }
     ]
   },
