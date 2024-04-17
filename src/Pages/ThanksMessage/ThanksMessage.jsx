@@ -23,9 +23,9 @@ const ThanksMessage = () => {
     console.log(formDetails);
     return (
         <div>
-            <FormBanner img={formDetails?.formBgImg} title={'Thanks for fill up the form'} description={<div>
+            <FormBanner img={formDetails?.formBgImg} title={'Thanks for fill up the form'} description={<div className="flex justify-center items-center">
 
-                <Link to={`/fillUpForm/${id}`} className="text-center underline hover:text-gray-300 cursor-pointer"> Fill up another form</Link>
+                <Link to={`/fillUpForm/${id}`} className="transition-all duration-300 border-2 p-1 px-2 rounded-lg text-center underline hover:text-gray-300 hover:border-gray-300 cursor-pointer active:scale-90 "> Fill up another form</Link>
             </div>} />
         </div>
     );

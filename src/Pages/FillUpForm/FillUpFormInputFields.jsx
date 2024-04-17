@@ -1,13 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import FillUpFormInputField from "./FillUpFormInputField";
+import { useNavigate } from 'react-router-dom'
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { useState } from "react";
 import FillUpDataCardsDatum from "../../Shared/FillUpDataCardsDatum";
 import FillUpFormDataCard from "../../Shared/FillUpFormDataCard";
-
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
+    const axiosPublic = useAxiosPublic();
+    const [submitting, setSubmitting] = useState(false)
+    const navigate = useNavigate()
     const { register, handleSubmit, reset, } = useForm()
     const imgHostingKey = import.meta.env.VITE_IMG_HOSTING_KEY;
     const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
@@ -15,6 +20,7 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
     const [data, setAllData] = useState([])
     const [everyData, setEveryData] = useState([])
     const onSubmit = async (data) => {
+        setSubmitting(true)
         const promisedData = everyData.map(async ({ key, value, type }) => {
             let restoredData = {}
             if (type === "file") {
@@ -46,15 +52,26 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
             allData,
             filledUpUserEmail: user?.email || 'Not logged in'
         }
-        console.log(storedData);
+        axiosPublic.post('/storeData', storedData)
+            .then(res => {
+                console.log(res);
+                toast.success("Submitted Successfully!");
+                setSubmitting(false)
+                navigate(`/thanks/${_id}`)
+            })
+            .catch(err => {
+                setSubmitting(false)
+            })
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
             {
                 inputFields?.map((inputField, idx) => <FillUpFormInputField inputField={inputField} key={idx} everyData={everyData} setEveryData={setEveryData} />)
             }
-            <button className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}>Submit</button>
-           
+            {
+                submitting ? <p className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}><span className="loading loading-bars loading-base text-white"></span> <span className="loading loading-bars loading-base text-white"></span></p> : <button className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}>Submit</button>
+            }
+
         </form>
     );
 };

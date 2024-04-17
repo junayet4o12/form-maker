@@ -58,7 +58,9 @@ const FormDetails = () => {
         return <Loading />
     }
 
-
+    const handleShowData = () => {
+        navigate(`/seeData/${id}`)
+    }
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(`http://localhost:5173/fillUpForm/${id}`);
@@ -86,12 +88,13 @@ const FormDetails = () => {
                 {
                     formDetails?.inputFields.map(inputField => <InputField key={inputField.id} inputField={inputField} setInputFields={''} inputFields={''} />)
                 }
-                <div className=" max-w-[500px] mx-auto flex flex-wrap justify-center items-center gap-x-10">
-                    <button onClick={handleUpdate} className={`btn w-max min-w-[130px] btn-primary bg-secondary/80 border-none hover:bg-secondary  my-5  ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Update</button>
-                    <button onClick={handleDelete} className={`btn w-max min-w-[130px] btn-primary bg-primary/80 border-none hover:bg-primary my-5  ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Delete</button>
-                    <button onClick={handleCopy} className={`btn w-max min-w-[130px] btn-primary bg-primary/80 border-none hover:bg-primary my-5  ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>{
+                <div className=" max-w-[500px] mx-auto grid grid-cols-2 w-full gap-2 gap-y-5">
+                    <button onClick={handleUpdate} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-secondary/80 border-none hover:bg-secondary     ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Update</button>
+                    <button onClick={handleDelete} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-primary/80 border-none hover:bg-primary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Delete</button>
+                    <button onClick={handleCopy} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-primary/80 border-none hover:bg-primary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>{
                         isCopied ? 'Copied' : 'Copy'
                     } <span className="text-lg"><BiCopyAlt /></span></button>
+                    <button onClick={handleShowData} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-secondary/80 border-none hover:bg-secondary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>See Data</button>
                 </div>
             </div>
         </div>
