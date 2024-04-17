@@ -10,7 +10,7 @@ const UpdateFormInputField = ({ inputField, setInputFields, inputFields }) => {
         setInputFields(inputFields.filter(field => field.id !== inputField.id))
     }
     return (
-        <div className="relative w-full  flex flex-col gap-2 min-w-[200px] max-w-[500px] mx-auto">
+        <div className="relative w-full  flex flex-col gap-2 min-w-[200px] max-w-[500px] mx-auto bg-gray-200 p-2 px-4 rounded-md">
             <label className='ml-1'>{inputField?.label}</label>
             <div className="w-full flex items-center gap-2">
                 {
@@ -28,8 +28,8 @@ const UpdateFormInputField = ({ inputField, setInputFields, inputFields }) => {
                     </select>
                 }
 
-                <button onClick={handleDeleteField} className="btn text-xl px-3">X</button>
-                <button onClick={() => setOpenModal(true)} className="btn text-xl px-3"><GrDocumentUpdate /></button>
+                <button onClick={handleDeleteField} className="btn text-xl px-3 bg-white">X</button>
+                <button onClick={() => setOpenModal(true)} className="btn text-xl px-3 bg-white"><GrDocumentUpdate /></button>
             </div>
             <UpdateModalForm open={openModal} setOpen={setOpenModal} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />
         </div>

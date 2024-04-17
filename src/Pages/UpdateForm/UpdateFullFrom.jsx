@@ -128,7 +128,7 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
                 {
                     inputFields.map(inputField => <UpdateFormInputField key={inputField.id} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />)
                 }
-                <p onClick={() => setOpenModal(true)} className=" w-max mx-auto btn text-3xl bg-primary/30">
+                <p onClick={() => setOpenModal(true)} className=" w-full mx-auto btn text-3xl bg-secondary/80 text-white hover:bg-secondary max-w-[500px]">
                     <FaRegSquarePlus />
                 </p>
                 <div className=" max-w-[500px] mx-auto flex justify-center items-center gap-5">

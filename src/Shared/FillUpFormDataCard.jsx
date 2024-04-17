@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import FillUpDataCardsDatum from "./FillUpDataCardsDatum";
 
-const FillUpFormDataCard = ({ data }) => {
+const FillUpFormDataCard = ({ data,idx }) => {
+    console.log(data?.allData);
     return (
-        <div>
+        <div className="border-2 border-black rounded-md p-2 w-full max-w-[400px] mx-auto">
+            <p>{idx || 0}</p>
             {
-                data.map((datum, idx) => {
+                data?.allData.map((datum, idx) => {
                     return <FillUpDataCardsDatum data={datum} key={idx} />
                 })
             }

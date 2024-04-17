@@ -13,6 +13,7 @@ import { BiCopyAlt } from "react-icons/bi";
 import { useState } from "react";
 import { backendUrl } from "../../hooks/backendUrl";
 import { toast } from 'react-hot-toast'
+import FormBanner from "../../Shared/FormBanner";
 const FormDetails = () => {
     const { id } = useParams();
     const axiosPublic = useAxiosPublic()
@@ -74,16 +75,8 @@ const FormDetails = () => {
     };
     console.log(formDetails);
     return (
-        <div className={`transition-all duration-500 w-full`}>
-            <div className="relative min-h-[200px] max-w-[500px] min-w-[200px] mx-auto">
-                <div className="h-full min-h-[200px] max-w-[500px] min-w-[200px] overflow-hidden relative">
-                    <img className="w-full h-full object-cover absolute" src={formDetails?.formBgImg || formBg} alt="" />
-                </div>
-                <div className="absolute top-0 w-full text-white bg-black/50 h-full p-4">
-                    <div className="text-3xl font-bold text-center capitalize py-5">{formDetails?.title}</div>
-                    <div className="text-lg font-bold capitalize py-5 min-w-[200px] max-w-[500px] mx-auto">{formDetails?.description}</div>
-                </div>
-            </div>
+        <div className={`transition-all duration-500 w-full py-10`}>
+            <FormBanner img={formDetails?.formBgImg || formBg} title={formDetails?.title} description={formDetails?.description} />
             <div className="flex flex-col gap-5">
                 {
                     formDetails?.inputFields.map(inputField => <InputField key={inputField.id} inputField={inputField} setInputFields={''} inputFields={''} />)
