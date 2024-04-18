@@ -3,9 +3,8 @@
 
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import CreatedFormInputField from "./CreatedFormInputField";
-import { Input, Textarea } from "@material-tailwind/react";
+
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useRef, useState } from "react";
 import { FaRegSquarePlus } from "react-icons/fa6";
 import { PiSelectionBackgroundLight } from "react-icons/pi";
@@ -14,6 +13,7 @@ import UpdateFormInputField from "../UpdateForm/UpdateFormInputField";
 import addFormBg from '../../assets/addPhoto.jpg'
 import defaultFormBg from '../../assets/bannerImg.jpg'
 import axios from "axios";
+
 const CreatedForm = () => {
     const { user } = useAuth()
     const [inputFields, setInputFields] = useState([])
@@ -23,7 +23,7 @@ const CreatedForm = () => {
     const [formBgFile0, setFormBgFile0] = useState('')
     const [formDescription, setFormDescription] = useState('');
     const [openModal, setOpenModal] = useState(false)
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
     const fileInput = useRef(null)
     const imgHostingKey = import.meta.env.VITE_IMG_HOSTING_KEY;
     const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
@@ -83,7 +83,7 @@ const CreatedForm = () => {
             confirmButtonText: "Yes, Create"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosPublic.post('/createForm', allData)
+                axiosSecure.post('/createForm', allData)
                     .then(res => {
                         console.log(res);
                         if (res.status == 200) {

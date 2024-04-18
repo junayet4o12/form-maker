@@ -31,19 +31,19 @@ const MyRouts = createBrowserRouter([
       },
       {
         path: '/profile',
-        element: <PrivateRouts><UserProfile/></PrivateRouts>
+        element: <PrivateRouts><UserProfile /></PrivateRouts>
       },
       {
         path: '/yourForms',
-        element: <YourForms />
+        element: <PrivateRouts><YourForms /></PrivateRouts>
       },
       {
         path: '/formDetails/:id',
-        element: <FormDetails />
+        element: <PrivateRouts><FormDetails /></PrivateRouts>
       },
       {
         path: '/updateForm/:id',
-        element: <UpdateForm />
+        element: <PrivateRouts><UpdateForm /></PrivateRouts>
       },
       {
         path: '/createForm',
@@ -51,15 +51,15 @@ const MyRouts = createBrowserRouter([
       },
       {
         path: '/fillUpForm/:id',
-        element: <FillUpForm/> 
+        element: <FillUpForm />
       },
       {
         path: '/thanks/:id',
-        element:<ThanksMessage/>
+        element: <ThanksMessage />
       },
       {
         path: '/seeData/:id',
-        element: <SeeData/>
+        element: <PrivateRouts><SeeData /></PrivateRouts>
       }
     ]
   },

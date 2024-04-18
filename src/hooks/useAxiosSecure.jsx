@@ -1,19 +1,22 @@
 import axios from "axios";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { backendUrl } from "./backendUrl";
 import auth from "../firebase/firebase.config";
-  
+import { backendUrl } from "./backendUrl";
+import useAuth from "./useAuth";
+
 // import React from 'react';
 const axiosSecure = axios.create({
     baseURL: backendUrl
 })
 const useAxiosSecure = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { user } = useAuth()
     axiosSecure.interceptors.request.use((res) => {
         const token = localStorage.getItem('token')
         res.headers.authorization = `bearer ${token}`
-        // console.log(config);
+        res.headers.ownerEmail = user?.email
+        console.log(user?.email);
         return res
     }, (err) => {
         Promise.reject(err)

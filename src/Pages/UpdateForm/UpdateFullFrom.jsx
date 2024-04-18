@@ -3,21 +3,19 @@
 import axios from 'axios'
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import CreatedFormInputField from "../CreateForm/CreatedFormInputField";
 import { useState, useRef } from "react";
 import UpdateFormInputField from "./UpdateFormInputField";
 import { useNavigate } from "react-router-dom";
 import { FaRegSquarePlus } from "react-icons/fa6";
 import AddFieldModal from "./AddFieldModal";
 import { PiSelectionBackgroundLight } from "react-icons/pi";
-import addFormBg from '../../assets/addPhoto.jpg'
 import defaultFormBg from '../../assets/bannerImg.jpg'
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 const UpdateFullForm = ({ formDetails, refetch }) => {
     const { user } = useAuth()
     const [openModal, setOpenModal] = useState(false)
     const navigate = useNavigate()
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
     const { title, inputFields: fields, userEmail, description } = formDetails;
     const [formTitle, setFormTitle] = useState(title || '')
     const [inputFields, setInputFields] = useState(fields || []);
@@ -75,7 +73,7 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
             fields: inputFields
         }
         console.log(data);
-        axiosPublic.put(`/updateForm/${formDetails?._id}`, data)
+        axiosSecure.put(`/updateForm/${formDetails?._id}`, data)
             .then(res => {
                 console.log(res);
                 if (res.statusText == 'OK') {

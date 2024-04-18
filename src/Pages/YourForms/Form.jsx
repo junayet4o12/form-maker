@@ -4,11 +4,20 @@ import { FaWpforms } from "react-icons/fa6";
 import { Button, Card, CardBody, CardFooter, Typography } from "@material-tailwind/react";
 import { makeVisibleTime } from "../../hooks/makeVisibleTime";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { signOut } from "firebase/auth";
+import auth from "../../firebase/firebase.config";
 
 const Form = ({ form }) => {
+    const { user } = useAuth()
     const navigate = useNavigate()
     const handleDetails = () => {
         navigate(`/formDetails/${form?._id}`)
+    }
+    if (user?.email !== form?.userEmail) {
+        signOut(auth)
+        navigate('/login')
+        return
     }
     return (
         <Card className="mt-6 w-96">

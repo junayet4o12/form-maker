@@ -2,18 +2,18 @@
 
 import { useQuery } from "@tanstack/react-query";
 import ComponentsTitle from "../../Shared/ComponentsTitle";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../Components/Loading/Loading";
 import Form from "./Form";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const YourForms = () => {
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
     const { data: yourForms, isLoading: yourFormsIsLoading } = useQuery({
         queryKey: [user, 'single user all forms'],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/singleUserForm/${user.email}`)
+            const res = await axiosSecure.get(`/singleUserForm/${user.email}`)
             return res?.data
         }
     })

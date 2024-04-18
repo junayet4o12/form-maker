@@ -21,6 +21,7 @@ const LogIn = () => {
     const onSubmit = async (data) => {
         setErr('')
         const email = data?.email;
+        console.log(email);
         const password = data?.password;
         loginUser(email, password)
             .then(res => {
@@ -78,7 +79,7 @@ const LogIn = () => {
                             <div>
                                 <p className="px-2 pb-1 text-sm">Write your email</p>
                                 <div className="relative w-full sm:w-[450px]">
-                                    <input required name="email" {...register("productName", { required: true })} className="w-full  sm:w-[450px]  bg-gray-200 p-3 px-10 rounded-lg " type="email" placeholder="email" />
+                                    <input required name="email" {...register("email", { required: true })} className="w-full  sm:w-[450px]  bg-gray-200 p-3 px-10 rounded-lg " type="email" placeholder="email" />
                                     {errors.email && <span className='text-red-500 text-sm'>Email is required</span>}
                                     <p className='text-xl absolute top-3.5 left-3 '><HiOutlineMail></HiOutlineMail></p>
                                 </div>

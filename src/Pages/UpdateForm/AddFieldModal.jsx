@@ -135,9 +135,6 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
                         <option>time</option>
                         <option>file</option>
                         <option>email</option>
-                        <option>checkbox</option>
-                        <option>radio</option>
-                        <option>submit</option>
                     </select>
                 </div>
                 <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Select' ? 'flex' : 'hidden'}`}>

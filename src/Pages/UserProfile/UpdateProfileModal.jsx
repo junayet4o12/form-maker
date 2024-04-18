@@ -2,17 +2,17 @@
 // import React from 'react';
 
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { updateProfile } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import Swal from "sweetalert2";
 import { Modal, TextField, Typography } from "@mui/material";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 
 const UpdateProfileModal = ({ handleClose, open,  profile, refetch }) => {
     const { register, handleSubmit, watch, reset, formState: { errors }, } = useForm()
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
 
     const onSubmit = (data) => {
         const name = data?.name;
@@ -33,7 +33,7 @@ const UpdateProfileModal = ({ handleClose, open,  profile, refetch }) => {
         })
             .then(() => {
                 console.log('user progile info updated');
-                axiosPublic.put(`/updateUserData/${profile?._id}`, prfileData)
+                axiosSecure.put(`/updateUserData/${profile?._id}`, prfileData)
                     .then(res => {
                         if (res.statusText=='OK') {
                             Swal.fire({

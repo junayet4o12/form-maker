@@ -13,7 +13,7 @@ const ThanksMessage = () => {
     const { data: formDetails, isLoading: formDetailsIsLoading, refetch } = useQuery({
         queryKey: [user, `Thanks for Fill up ${id}`],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/formDetails/${id}`)
+            const res = await axiosPublic.get(`/fillUpFormDetails/${id}`)
             return res?.data
         }
     })

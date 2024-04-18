@@ -1,29 +1,27 @@
 // import React from 'react';
 
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import {  useNavigate, useParams } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
-import CreatedFormInputField from "../CreateForm/CreatedFormInputField";
 import InputField from "./InputField";
 import Swal from "sweetalert2";
 import formBg from '../../assets/bannerImg.jpg'
 import { BiCopyAlt } from "react-icons/bi";
 import { useState } from "react";
-import { backendUrl } from "../../hooks/backendUrl";
 import { toast } from 'react-hot-toast'
 import FormBanner from "../../Shared/FormBanner";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 const FormDetails = () => {
     const { id } = useParams();
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure()
     const [isCopied, setIsCopied] = useState(false)
     const navigate = useNavigate()
     const { user } = useAuth()
     const { data: formDetails, isLoading: formDetailsIsLoading } = useQuery({
         queryKey: [user, id],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/formDetails/${id}`)
+            const res = await axiosSecure.get(`/formDetailsForUpdateAndDelete/${id}`)
             return res?.data
         }
     })
@@ -41,7 +39,7 @@ const FormDetails = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosPublic.delete(`deleteForm/${id}`)
+                axiosSecure.delete(`deleteForm/${id}`)
                     .then(res => {
                         console.log(res);
                         Swal.fire({

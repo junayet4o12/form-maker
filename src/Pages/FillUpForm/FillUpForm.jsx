@@ -15,7 +15,7 @@ const FillUpForm = () => {
     const { data: formDetails, isLoading: formDetailsIsLoading, refetch } = useQuery({
         queryKey: [user, `full up the form ${id}`],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/formDetails/${id}`)
+            const res = await axiosPublic.get(`/fillUpFormDetails/${id}`)
             return res?.data
         }
     })

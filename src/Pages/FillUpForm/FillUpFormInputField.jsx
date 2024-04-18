@@ -27,6 +27,7 @@ const FillUpFormInputField = ({ inputField, everyData, setEveryData }) => {
             console.log(everyData);
         }
     }
+    console.log(inputField?.requirement);
     return (
         <div className="relative w-full  flex flex-col gap-2 min-w-[200px] max-w-[500px] mx-auto bg-gray-200 p-2 px-4 rounded-md">
             <label className='ml-1'>{inputField?.label}</label>
@@ -48,6 +49,7 @@ const FillUpFormInputField = ({ inputField, everyData, setEveryData }) => {
                         onChange={handleChange}
                         required={inputField?.requirement}
                         className="select select-primary w-full h-11">
+                            <option value={''}>Select</option>
                         {
                             inputField?.fields.map(field => <option key={field.id}>{field.value}</option>)
                         }

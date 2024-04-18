@@ -2,19 +2,19 @@
 
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import UpdateProfileModal from "./UpdateProfileModal";
 import Loading from "../../Components/Loading/Loading";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const UserProfile = () => {
     const [open, setOpen] = useState(false);
     const { user } = useAuth()
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const { data: userProfile = {}, refetch, isLoading } = useQuery({
         queryKey: ['participantsData', user],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/singleUser/${user?.email}`)
+            const res = await axiosSecure.get(`/singleUser/${user?.email}`)
             return res?.data
         }
     })
