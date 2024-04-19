@@ -6,7 +6,6 @@ import UpdateModalForm from "./UpdateModalForm";
 const UpdateFormInputField = ({ inputField, setInputFields, inputFields }) => {
     const [openModal, setOpenModal] = useState(false)
     const handleDeleteField = () => {
-        console.log(inputField?.id);
         setInputFields(inputFields.filter(field => field.id !== inputField.id))
     }
     return (

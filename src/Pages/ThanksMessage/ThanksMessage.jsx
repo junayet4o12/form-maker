@@ -20,7 +20,6 @@ const ThanksMessage = () => {
     if (formDetailsIsLoading) {
         return <Loading />
     }
-    console.log(formDetails);
     return (
         <div>
             <FormBanner img={formDetails?.formBgImg} title={'Thanks for fill up the form'} description={<div className="flex justify-center items-center">

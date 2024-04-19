@@ -21,11 +21,9 @@ const LogIn = () => {
     const onSubmit = async (data) => {
         setErr('')
         const email = data?.email;
-        console.log(email);
         const password = data?.password;
         loginUser(email, password)
             .then(res => {
-                console.log(res);
                 Swal.fire({
                     title: "Logged in Successfully..",
                     showClass: {
@@ -46,7 +44,6 @@ const LogIn = () => {
                 navigate('/', { replace: true })
             })
             .catch(err => {
-                console.log(err)
                 setErr(err?.message)
             })
 

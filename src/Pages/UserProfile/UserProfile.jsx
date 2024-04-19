@@ -21,7 +21,6 @@ const UserProfile = () => {
     if(isLoading){
         return <Loading/>
     }
-    console.log(user?.email,userProfile);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     return (

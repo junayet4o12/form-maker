@@ -41,14 +41,12 @@ const Register = () => {
         const imgurl = res?.data?.data?.display_url
         createUser(data.email, data.password)
             .then(res => {
-                console.log(res.user);
                 updateProfile(auth.currentUser, {
                     displayName: data.name,
                     photoURL: imgurl
 
                 })
                     .then(() => {
-                        console.log('user progile info updated');
                         const userInfo = {
                             name: data.name,
                             email: data.email,
@@ -58,7 +56,6 @@ const Register = () => {
                         }
                         axiosPublic.post('/addUser', userInfo)
                             .then(res => {
-                                console.log(res);
                                 if (res.statusText=='OK') {
                                     Swal.fire({
                                         icon: "success",
@@ -73,11 +70,9 @@ const Register = () => {
 
                     })
                     .catch(err => {
-                        console.log(err)
                     })
             })
             .catch(err => {
-                console.log(err)
                 seterr(err?.message)
             })
     }

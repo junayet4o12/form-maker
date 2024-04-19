@@ -16,7 +16,6 @@ const FillUpFormInputField = ({ inputField, everyData, setEveryData }) => {
                 value: e.target.files,
                 type: inputField?.inputType || 'not an input field'
             }])
-            console.log(everyData);
         } else {
 
             setEveryData([...newArray, {
@@ -24,10 +23,8 @@ const FillUpFormInputField = ({ inputField, everyData, setEveryData }) => {
                 value: e.target.value,
                 type: inputField?.inputType || inputField?.type
             }])
-            console.log(everyData);
         }
     }
-    console.log(inputField?.requirement);
     return (
         <div className="relative w-full  flex flex-col gap-2 min-w-[200px] max-w-[500px] mx-auto bg-gray-200 p-2 px-4 rounded-md">
             <label className='ml-1'>{inputField?.label}</label>

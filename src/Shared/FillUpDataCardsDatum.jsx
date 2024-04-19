@@ -4,10 +4,7 @@
 import { formatTimeTo12HourFormat } from "../hooks/formatTimeTo12HourFormat";
 
 const FillUpDataCardsDatum = ({ data }) => {
-    console.log(data.type);
     const showData = data.type === 'time' ? formatTimeTo12HourFormat(data?.value) : data.value;
-    const timezoneOffsetInMinutes = new Date().getTimezoneOffset();
-    console.log(timezoneOffsetInMinutes);
     return (
         <div>
             {

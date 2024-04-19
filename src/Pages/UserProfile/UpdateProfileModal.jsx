@@ -32,7 +32,6 @@ const UpdateProfileModal = ({ handleClose, open,  profile, refetch }) => {
 
         })
             .then(() => {
-                console.log('user progile info updated');
                 axiosSecure.put(`/updateUserData/${profile?._id}`, prfileData)
                     .then(res => {
                         if (res.statusText=='OK') {
@@ -48,7 +47,9 @@ const UpdateProfileModal = ({ handleClose, open,  profile, refetch }) => {
                     })
 
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                
+            })
     
 }
 return (

@@ -24,7 +24,10 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
     const [formBg, setFormBg] = useState('')
     const [formBgFile0, setFormBgFile0] = useState('')
     const fileInput = useRef(null)
-
+    const [enabledDate, setEnabledDate] = useState(formDetails?.enabledDate || '')
+    const [enabledTime, setEnabledTime] = useState(formDetails?.enabledTime || '')
+    const [disabledDate, setDisabledDate] = useState(formDetails?.disabledDate || '')
+    const [disabledTime, setDisabledTime] = useState(formDetails?.disabledTime || '')
     const imgHostingKey = import.meta.env.VITE_IMG_HOSTING_KEY;
     const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
     const defaultFormBgLiveLink = 'https://i.ibb.co/WsKMhTB/banner-Img.jpg'
@@ -70,12 +73,14 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
             formBgImg,
             title: formTitle,
             description: formDescription,
-            fields: inputFields
+            fields: inputFields,
+            enabledDate,
+            enabledTime,
+            disabledDate,
+            disabledTime
         }
-        console.log(data);
         axiosSecure.put(`/updateForm/${formDetails?._id}`, data)
             .then(res => {
-                console.log(res);
                 if (res.statusText == 'OK') {
                     Swal.fire({
                         icon: "success",
@@ -91,7 +96,7 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
     return (
         <div className={`transition-all duration-500 w-full`}>
 
-            <div className='flex gap-4 flex-col '>
+            <div className='flex gap-4 flex-col mb-4'>
                 <div className="w-full min-w-[200px] max-w-[500px] flex flex-col gap-2 relative mx-auto">
                     <label className="text-3xl">Form Background Image</label>
                     <input
@@ -121,16 +126,67 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
                         className="textarea textarea-primary h-[100px] text-lg"
                     />
                 </div>
+                <div className="relative min-w-[200px] max-w-[500px] flex flex-col gap-2 mx-auto w-full">
+                    <label className="text-3xl">Form enabled time</label>
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="flex flex-col gap-2">
+                            <label className="text-base">Date</label>
+                            <input value={enabledDate}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setEnabledDate(e.target.value)
+                                }}
+                                type="date" className="input input-primary h-[40px] text-base" />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label className="text-base">Time</label>
+                            <input value={enabledTime}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setEnabledTime(e.target.value)
+                                }}
+                                type="time" className="input input-primary h-[40px] text-base" />
+                        </div>
+                    </div>
+                </div>
+                <div className="relative min-w-[200px] max-w-[500px] flex flex-col gap-2 mx-auto w-full">
+                    <label className="text-3xl">Form disabled time</label>
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="flex flex-col gap-2">
+                            <label className="text-base">Date</label>
+                            <input
+                                value={disabledDate}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setDisabledDate(e.target.value)
+                                }}
+                                type="date" className="input input-primary h-[40px] text-base" />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label className="text-base">Time</label>
+                            <input
+                                value={disabledTime}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setDisabledTime(e.target.value)
+                                }}
+                                type="time" className="input input-primary h-[40px] text-base" />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="flex flex-col gap-5">
                 {
                     inputFields.map(inputField => <UpdateFormInputField key={inputField.id} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />)
                 }
                 <p onClick={() => setOpenModal(true)} className=" w-full mx-auto btn text-3xl bg-secondary/80 text-white hover:bg-secondary max-w-[500px]">
-                    <FaRegSquarePlus />
+                <span className="text-xl">Add field</span>   <FaRegSquarePlus />
                 </p>
                 <div className=" max-w-[500px] mx-auto flex justify-center items-center gap-5">
-                    <button onClick={handleUpdate} className={`btn btn-primary bg-secondary/80 border-none hover:bg-secondary w-full my-5  ${formTitle ? `${inputFields.length > 0 ? 'scale-x-100' : 'scale-x-0'}` : 'scale-x-0'} `}>Update Form</button>
+                    <button
+                        disabled={formTitle ? inputFields.length > 0 ? enabledDate && enabledTime && disabledDate && disabledTime ? false : true : true : true}
+                        onClick={handleUpdate}
+                        className={`btn btn-primary bg-secondary/80 border-none hover:bg-secondary w-full my-5`}>Update Form</button>
                     <button onClick={() => navigate(-1)} className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full my-5  ${formTitle ? `${inputFields.length > 0 ? 'scale-x-100' : 'scale-x-0'}` : 'scale-x-0'} `}>Cancel</button>
                 </div>
             </div>

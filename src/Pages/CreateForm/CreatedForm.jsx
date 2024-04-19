@@ -25,6 +25,10 @@ const CreatedForm = () => {
     const [openModal, setOpenModal] = useState(false)
     const axiosSecure = useAxiosSecure()
     const fileInput = useRef(null)
+    const [enabledDate, setEnabledDate] = useState('')
+    const [enabledTime, setEnabledTime] = useState('')
+    const [disabledDate, setDisabledDate] = useState('')
+    const [disabledTime, setDisabledTime] = useState('')
     const imgHostingKey = import.meta.env.VITE_IMG_HOSTING_KEY;
     const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
     const defaultFormBgLiveLink = 'https://i.ibb.co/WsKMhTB/banner-Img.jpg'
@@ -72,8 +76,13 @@ const CreatedForm = () => {
             inputFields: inputFields,
             userEmail: user?.email,
             createdDate: new Date().getTime(),
-            formBgImg
+            formBgImg,
+            enabledDate,
+            enabledTime,
+            disabledDate,
+            disabledTime
         }
+        console.log(allData);
         Swal.fire({
             title: "Are you sure to create the form?",
             icon: "warning",
@@ -85,7 +94,6 @@ const CreatedForm = () => {
             if (result.isConfirmed) {
                 axiosSecure.post('/createForm', allData)
                     .then(res => {
-                        console.log(res);
                         if (res.status == 200) {
                             Swal.fire({
                                 icon: "success",
@@ -101,7 +109,6 @@ const CreatedForm = () => {
             }
         });
 
-        console.log(allData);
     }
     return (
         <div className={`transition-all duration-500 min-w-[200px] max-w-[500px] mx-auto`}>
@@ -135,7 +142,56 @@ const CreatedForm = () => {
                         className="textarea textarea-primary h-[100px] text-lg"
                     />
                 </div>
+                <div className="relative min-w-[200px] max-w-[500px] flex flex-col gap-2">
+                    <label className="text-3xl">Form enabled time</label>
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="flex flex-col gap-2">
+                            <label className="text-base">Date</label>
+                            <input value={enabledDate}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setEnabledDate(e.target.value)
+                                }}
+                                type="date" className="input input-primary h-[40px] text-base" />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label className="text-base">Time</label>
+                            <input value={enabledTime}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setEnabledTime(e.target.value)
+                                }}
+                                type="time" className="input input-primary h-[40px] text-base" />
+                        </div>
+                    </div>
+                </div>
+                <div className="relative min-w-[200px] max-w-[500px] flex flex-col gap-2">
+                    <label className="text-3xl">Form disabled time</label>
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="flex flex-col gap-2">
+                            <label className="text-base">Date</label>
+                            <input
+                                value={disabledDate}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setDisabledDate(e.target.value)
+                                }}
+                                type="date" className="input input-primary h-[40px] text-base" />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label className="text-base">Time</label>
+                            <input
+                                value={disabledTime}
+                                onChange={(e) => {
+                                    e.preventDefault()
+                                    setDisabledTime(e.target.value)
+                                }}
+                                type="time" className="input input-primary h-[40px] text-base" />
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div className="flex flex-col gap-5">
                 {
                     inputFields.map(inputField => <UpdateFormInputField key={inputField.id} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />)
@@ -144,11 +200,13 @@ const CreatedForm = () => {
                     <p
                         title="Add a field"
                         onClick={() => setOpenModal(true)} className=" w-full mx-auto btn text-3xl bg-secondary/80 text-white hover:bg-secondary">
-                        <FaRegSquarePlus />
+                        <span className="text-xl">Add field</span> <FaRegSquarePlus />
                     </p>
                 </div>
                 <div className="w-full max-w-[500px] mx-auto">
-                    <button onClick={handleCreateForm} className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full my-5  ${formTitle ? `${inputFields.length > 0 ? 'scale-x-100' : 'scale-x-0'}` : 'scale-x-0'} `}>Create Form</button>
+                    <button
+                        disabled={formTitle ? inputFields.length > 0 ? enabledDate && enabledTime && disabledDate && disabledTime ? false : true : true : true}
+                        onClick={handleCreateForm} className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full my-5 `}>Create Form</button>
                 </div>
             </div>
             <AddFieldModal open={openModal} setOpen={setOpenModal} inputFields={inputFields} setInputFields={setInputFields} />

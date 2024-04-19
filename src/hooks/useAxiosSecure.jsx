@@ -16,7 +16,6 @@ const useAxiosSecure = () => {
         const token = localStorage.getItem('token')
         res.headers.authorization = `bearer ${token}`
         res.headers.ownerEmail = user?.email
-        console.log(user?.email);
         return res
     }, (err) => {
         Promise.reject(err)
@@ -25,7 +24,6 @@ const useAxiosSecure = () => {
         return res;
     }, (err) => {
         const status = err.response.status;
-        console.log(status);
         if (status === 401 || status === 403)
             signOut(auth)
         navigate('/login')

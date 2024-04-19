@@ -25,7 +25,6 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
     const handleFieldType = (e) => {
         e.preventDefault();
         setFieldType(e.target.value)
-        console.log(fieldType);
 
     }
     const handleInputType = (e) => {
@@ -51,9 +50,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
         setRequirement(e.target.value)
     }
     const handleDeleteSelectedField = (id) => {
-        console.log(id);
         const newSelectedField = selectedField.filter(field => field.id !== id)
-        console.log(newSelectedField.length);
         setSelectedField(newSelectedField)
     }
     const handleSubmit = async (e) => {
@@ -61,7 +58,6 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
         const type = fieldType;
         const required = requirement === 'No' ? false : true;
         let inputFieldData = {};
-        console.log(type);
         if (type === 'Input') {
             inputFieldData = {
                 label, type, inputType
@@ -72,7 +68,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
             }
         } else if (type === 'Select') {
             if (selectedField.length < 1) {
-                return console.log('not allowed');
+                return 
             }
             inputFieldData = {
                 label, type, fields: selectedField

@@ -25,14 +25,12 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
             let restoredData = {}
             if (type === "file") {
                 const image = { image: value[0] }
-                console.log(value);
                 const res = await axios.post(imgHostingApi, image, {
                     headers: {
                         'content-type': 'multipart/form-data'
                     }
                 })
                 const imgUrl = res?.data?.data?.display_url;
-                console.log(imgUrl);
                 restoredData = {
                     key, value: imgUrl, type
                 }
@@ -54,7 +52,6 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
         }
         axiosPublic.post('/storeData', storedData)
             .then(res => {
-                console.log(res);
                 toast.success("Submitted Successfully!");
                 setSubmitting(false)
                 navigate(`/thanks/${_id}`)
@@ -68,9 +65,11 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
             {
                 inputFields?.map((inputField, idx) => <FillUpFormInputField inputField={inputField} key={idx} everyData={everyData} setEveryData={setEveryData} />)
             }
-            {
-                submitting ? <p className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}><span className="loading loading-bars loading-base text-white"></span> <span className="loading loading-bars loading-base text-white"></span></p> : <button className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}>Submit</button>
-            }
+            <div className="px-2 sm:px-0 w-full min-w-[200px] max-w-[500px] mx-auto">
+                {
+                    submitting ? <p className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}><span className="loading loading-bars loading-base text-white"></span> <span className="loading loading-bars loading-base text-white"></span></p> : <button className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}>Submit</button>
+                }
+            </div>
 
         </form>
     );

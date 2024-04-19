@@ -1,6 +1,6 @@
 // import React from 'react';
 
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../Components/Loading/Loading";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -12,6 +12,8 @@ import { useState } from "react";
 import { toast } from 'react-hot-toast'
 import FormBanner from "../../Shared/FormBanner";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { signOut } from "firebase/auth";
+import auth from "../../firebase/firebase.config";
 const FormDetails = () => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure()
@@ -25,6 +27,15 @@ const FormDetails = () => {
             return res?.data
         }
     })
+
+    if (formDetailsIsLoading) {
+        return <Loading />
+    }
+    if (user?.email !== formDetails?.userEmail) {
+        signOut(auth)
+        navigate('/login')
+        return
+    }
     const handleUpdate = () => {
         navigate(`/updateForm/${id}`)
     }
@@ -41,7 +52,6 @@ const FormDetails = () => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`deleteForm/${id}`)
                     .then(res => {
-                        console.log(res);
                         Swal.fire({
                             title: "Deleted!",
                             text: "Form has deleted",
@@ -53,16 +63,12 @@ const FormDetails = () => {
             }
         });
     }
-    if (formDetailsIsLoading) {
-        return <Loading />
-    }
-
     const handleShowData = () => {
         navigate(`/seeData/${id}`)
     }
     const handleCopy = async () => {
         try {
-            await navigator.clipboard.writeText(`http://localhost:5173/fillUpForm/${id}`);
+            await navigator.clipboard.writeText(`https://formify-99f7d.web.app/fillUpForm/${id}`);
             setIsCopied(true)
             toast.success('Shared Form link copied successfully!!', {
                 icon: '✌️',
@@ -71,7 +77,6 @@ const FormDetails = () => {
             console.error('Failed to copy: ', err);
         }
     };
-    console.log(formDetails);
     return (
         <div className={`transition-all duration-500 w-full py-10`}>
             <FormBanner img={formDetails?.formBgImg || formBg} title={formDetails?.title} description={formDetails?.description} />

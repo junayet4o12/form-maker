@@ -13,7 +13,6 @@ const SeeData = () => {
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
     const { user } = useAuth()
-    console.log(id, user?.email);
     const { data: storedFormData = [], isLoading: storedFormDataIsLoading, refetch } = useQuery({
         queryKey: [user, `this forms stored Data ${id}`],
         queryFn: async () => {

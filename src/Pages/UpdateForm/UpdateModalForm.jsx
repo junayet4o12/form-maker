@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputFields }) => {
-    console.log(inputField.inputType);
     const [fieldType, setFieldType] = useState(inputField.type || 'Input')
     const [inputType, setInputType] = useState(inputField.inputType || 'text')
     const [selectedField, setSelectedField] = useState(inputField.fields || []);
@@ -27,7 +26,6 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
     const handleFieldType = (e) => {
         e.preventDefault();
         setFieldType(e.target.value)
-        console.log(fieldType);
 
     }
     const handleInputType = (e) => {
@@ -53,9 +51,7 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
         setRequirement(e.target.value)
     }
     const handleDeleteSelectedField = (id) => {
-        console.log(id);
         const newSelectedField = selectedField.filter(field => field.id !== id)
-        console.log(newSelectedField.length);
         setSelectedField(newSelectedField)
     }
     const handleSubmit = async (e) => {
@@ -63,7 +59,6 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
         const type = fieldType;
         const required = requirement === 'No' ? false : true;
         let inputFieldData = {};
-        console.log(type);
         if (type === 'Input') {
             inputFieldData = {
                 label, type, inputType
@@ -74,7 +69,7 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
             }
         } else if (type === 'Select') {
             if (selectedField.length < 1) {
-                return console.log('not allowed');
+                return 
             }
             inputFieldData = {
                 label, type, fields: selectedField
@@ -88,7 +83,6 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
         const newInputFields = [...inputFields];
         newInputFields?.splice(inputFields.indexOf(inputField), 1, inputFieldData)
 
-        console.log(newInputFields);
         setInputFields(newInputFields)
         handleClose()
 

@@ -14,7 +14,6 @@ const useGoogleLogin = () => {
 
         googleLogIn()
             .then(res => {
-                console.log(res.user);
                 const userInfo = {
                     name: res?.user?.displayName,
                     email: res?.user?.email,
@@ -22,7 +21,7 @@ const useGoogleLogin = () => {
                 }
                 axiosPublic.post('/addUser', userInfo)
                     .then(res => {
-                        console.log(res?.data);
+                        (res?.data);
                         Swal.fire({
                             title: "Logged in Successfully..",
                             showClass: {
@@ -46,7 +45,6 @@ const useGoogleLogin = () => {
 
             })
             .catch(err => {
-                console.log(err);
             })
     }
     return handlegooglelogin

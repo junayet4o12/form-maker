@@ -5,7 +5,6 @@ import NavBar from '../Components/NavBar/NavBar';
 const MainLayout = () => {
     const location = useLocation();
     const pathName = location.pathname
-    console.log(location.pathname);
     return (
         <div className='relative'>
             <div className='fixed w-full z-10'>

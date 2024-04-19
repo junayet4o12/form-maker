@@ -23,7 +23,7 @@ const CreateForm = () => {
     //     const inputType = data?.inputType;
     //     const required = data?.required === 'No' ? false : true;
     //     let inputFieldData = {};
-    //     console.log(type);
+    //     
     //     if (type === 'Input') {
     //         inputFieldData = {
     //             label, type, inputType
@@ -34,7 +34,7 @@ const CreateForm = () => {
     //         }
     //     } else if (type === 'Select') {
     //         if (selectedField.length < 1) {
-    //             return console.log('not allowed');
+    //             return ;
     //         }
     //         inputFieldData = {
     //             label, type, fields: selectedField
@@ -56,7 +56,7 @@ const CreateForm = () => {
     //                 id: new Date().getTime(),
     //                 requirement: required
     //             }
-    //             console.log(inputFieldData);
+    //             ;
     //             setInputFields([...inputFields, inputFieldData])
     //             reset()
     //             setFieldType('Input')

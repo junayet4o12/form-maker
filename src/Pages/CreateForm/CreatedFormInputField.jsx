@@ -2,9 +2,7 @@
 // import React from 'react';
 
 const CreatedFormInputField = ({ inputField, setInputFields, inputFields }) => {
-    console.log(inputField);
     const handleDeleteField = () => {
-        console.log(inputField?.id);
         setInputFields(inputFields.filter(field => field.id !== inputField.id))
     }
     return (
