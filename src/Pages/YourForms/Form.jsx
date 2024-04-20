@@ -14,6 +14,9 @@ const Form = ({ form }) => {
     const handleDetails = () => {
         navigate(`/formDetails/${form?._id}`)
     }
+    const handleNavigateResponses = () => {
+        navigate(`/responses/${form?._id}`)
+    }
     if (user?.email !== form?.userEmail) {
         signOut(auth)
         navigate('/login')
@@ -38,10 +41,29 @@ const Form = ({ form }) => {
                     Description: {form?.description || 'Not given Yet'}
                 </Typography>
             </CardBody>
-            <CardFooter className="pt-0">
-                <a className="inline-block">
-                    <Button onClick={handleDetails} size="sm" variant="text" className="flex items-center gap-2">
+            <CardFooter className="pt-0 flex flex-wrap">
+                <a className="inline-block w-1/2 min-w-max">
+                    <Button onClick={handleDetails} size="sm" variant="text" className="flex items-center gap-2 px-1 rounded-none">
                         Details
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2}
+                            stroke="currentColor"
+                            className="h-4 w-4"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                            />
+                        </svg>
+                    </Button>
+                </a>
+                <a className="inline-block w-1/2 min-w-max">
+                    <Button onClick={handleNavigateResponses} size="sm" variant="text" className="flex items-center gap-2 px-1 rounded-none">
+                        Responses
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"

@@ -36,7 +36,6 @@ const FillUpFullForm = ({ formDetails }) => {
             }, 1000);
         }
     }, []);
-    console.log(enabledTimeInMillisecond);
     return (
         <div className="py-10">
             <div className="relative min-h-[200px] max-w-[500px] min-w-[200px] mx-auto">

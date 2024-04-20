@@ -58,7 +58,7 @@ const MyRouts = createBrowserRouter([
         element: <ThanksMessage />
       },
       {
-        path: '/seeData/:id',
+        path: '/responses/:id',
         element: <PrivateRouts><SeeData /></PrivateRouts>
       }
     ]

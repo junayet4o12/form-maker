@@ -13,7 +13,7 @@ const WarningModal = ({open,setOpen}) => {
         <Dialog
         open={open}
         size={'xs'}
-        handler={open}
+        handler={handleClose}
         
       >
         <DialogHeader className="text-primary/90">You're not logged in yet!!</DialogHeader>

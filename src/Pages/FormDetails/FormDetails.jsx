@@ -64,7 +64,7 @@ const FormDetails = () => {
         });
     }
     const handleShowData = () => {
-        navigate(`/seeData/${id}`)
+        navigate(`/responses/${id}`)
     }
     const handleCopy = async () => {
         try {
@@ -90,7 +90,7 @@ const FormDetails = () => {
                     <button onClick={handleCopy} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-primary/80 border-none hover:bg-primary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>{
                         isCopied ? 'Copied' : 'Copy'
                     } <span className="text-lg"><BiCopyAlt /></span></button>
-                    <button onClick={handleShowData} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-secondary/80 border-none hover:bg-secondary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>See Data</button>
+                    <button onClick={handleShowData} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-secondary/80 border-none hover:bg-secondary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Responses</button>
                 </div>
             </div>
         </div>

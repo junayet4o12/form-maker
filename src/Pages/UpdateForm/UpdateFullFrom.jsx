@@ -81,7 +81,8 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
         }
         axiosSecure.put(`/updateForm/${formDetails?._id}`, data)
             .then(res => {
-                if (res.statusText == 'OK') {
+                console.log(res);
+                if (res.status == 200) {
                     Swal.fire({
                         icon: "success",
                         title: "Form updated Successfully",
@@ -104,10 +105,12 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
                         className='hidden'
                         onChange={handleFileChange}
                         type="file" name="productImage" id="image" />
-                    <img onClick={handleFormBg} className='w-full  object-cover h-[200px] cursor-pointer' src={formBgPlaceholder} alt="" />
-                    <button onClick={() => {
-                        setFormBgPlaceholder(defaultFormBg)
-                    }} className="transition-all duration-300 p-1 rounded-sm hover:rounded-md font-bold active:scale-90 flex flex-col justify-center items-center text-xs bg-primary/80 hover:bg-primary text-white  w-max absolute top-14 right-5 border-none">Default Img <span className="text-2xl"><PiSelectionBackgroundLight /></span></button>
+                    <div className='relative'>
+                        <img onClick={handleFormBg} className='w-full  object-cover h-[200px] cursor-pointer' src={formBgPlaceholder} alt="" />
+                        <button onClick={() => {
+                            setFormBgPlaceholder(defaultFormBg)
+                        }} className="transition-all duration-300 p-1 rounded-sm hover:rounded-md font-bold active:scale-90 flex flex-col justify-center items-center text-xs bg-primary/80 hover:bg-primary text-white  w-max absolute top-5 right-5 border-none">Default Img <span className="text-2xl"><PiSelectionBackgroundLight /></span></button>
+                    </div>
                     <label className="text-3xl">Form Title</label>
                     <input
                         onChange={handleFormTitle}
@@ -180,7 +183,7 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
                     inputFields.map(inputField => <UpdateFormInputField key={inputField.id} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />)
                 }
                 <p onClick={() => setOpenModal(true)} className=" w-full mx-auto btn text-3xl bg-secondary/80 text-white hover:bg-secondary max-w-[500px]">
-                <span className="text-xl">Add field</span>   <FaRegSquarePlus />
+                    <span className="text-xl">Add field</span>   <FaRegSquarePlus />
                 </p>
                 <div className=" max-w-[500px] mx-auto flex justify-center items-center gap-5">
                     <button

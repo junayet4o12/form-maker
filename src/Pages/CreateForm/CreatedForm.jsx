@@ -13,6 +13,7 @@ import UpdateFormInputField from "../UpdateForm/UpdateFormInputField";
 import addFormBg from '../../assets/addPhoto.jpg'
 import defaultFormBg from '../../assets/bannerImg.jpg'
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const CreatedForm = () => {
     const { user } = useAuth()
@@ -53,6 +54,16 @@ const CreatedForm = () => {
         e.preventDefault();
         setFormDescription(e.target.value)
     }
+    const handleCopy = async (id) => {
+        try {
+            await navigator.clipboard.writeText(`https://formify-99f7d.web.app/fillUpForm/${id}`);
+            toast.success('Shared Form link copied successfully!!', {
+                icon: '✌️',
+            })
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    };
     const handleCreateForm = async () => {
         let formBgImg = '';
         if (formBgPlaceholder === addFormBg) {
@@ -82,7 +93,6 @@ const CreatedForm = () => {
             disabledDate,
             disabledTime
         }
-        console.log(allData);
         Swal.fire({
             title: "Are you sure to create the form?",
             icon: "warning",
@@ -96,14 +106,23 @@ const CreatedForm = () => {
                     .then(res => {
                         if (res.status == 200) {
                             Swal.fire({
-                                icon: "success",
-                                title: "Form has created successfully",
-                                showConfirmButton: false,
-                                timer: 1500
+                                title: "Your Form has created!!",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Copy Shared link"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    handleCopy(res?.data?._id)
+                                }
                             });
                             setInputFields([])
                             setFormTitle('')
                             setFormDescription('')
+                            setEnabledDate('')
+                            setEnabledTime('')
+                            setDisabledDate('')
+                            setDisabledTime('')
                         }
                     })
             }
@@ -120,10 +139,12 @@ const CreatedForm = () => {
                         className='hidden'
                         onChange={handleFileChange}
                         type="file" name="productImage" id="image" />
-                    <img onClick={handleFormBg} className='w-full  object-cover h-[200px] cursor-pointer' src={formBgPlaceholder} alt="" />
-                    <button onClick={() => {
-                        setFormBgPlaceholder(defaultFormBg)
-                    }} className="transition-all duration-300 p-1 rounded-sm hover:rounded-md font-bold active:scale-90 flex flex-col justify-center items-center text-xs bg-primary/80 hover:bg-primary text-white  w-max absolute top-14 right-5 border-none">Default Img <span className="text-2xl"><PiSelectionBackgroundLight /></span></button>
+                    <div className="relative">
+                        <img onClick={handleFormBg} className='w-full  object-cover h-[200px] cursor-pointer' src={formBgPlaceholder} alt="" />
+                        <button onClick={() => {
+                            setFormBgPlaceholder(defaultFormBg)
+                        }} className="transition-all duration-300 p-1 rounded-sm hover:rounded-md font-bold active:scale-90 flex flex-col justify-center items-center text-xs bg-primary/80 hover:bg-primary text-white  w-max absolute top-5 right-5 border-none">Default Img <span className="text-2xl"><PiSelectionBackgroundLight /></span></button>
+                    </div>
                     <label className="text-3xl">Form Title</label>
                     <input
                         onChange={handleFormTitle}

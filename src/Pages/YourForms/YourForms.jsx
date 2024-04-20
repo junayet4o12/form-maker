@@ -23,7 +23,7 @@ const YourForms = () => {
     }
    
     return (
-        <div className="pb-10">
+        <div className="pb-10 px-5">
             <ComponentsTitle title1={'The Special forms'} title2={'created by'} title3={'you'} description={`Manage created forms: view, update, delete, access details. Simplify form management from this interface. Effortless control over your forms.`} />
 
             <div className="flex flex-wrap justify-center items-center gap-5">

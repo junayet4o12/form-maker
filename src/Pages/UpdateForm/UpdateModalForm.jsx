@@ -9,8 +9,9 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputFields }) => {
-    const [fieldType, setFieldType] = useState(inputField.type || 'Input')
-    const [inputType, setInputType] = useState(inputField.inputType || 'text')
+    console.log(inputFields);
+    const [fieldType, setFieldType] = useState(inputField.realType || 'Input')
+    // const [inputType, setInputType] = useState(inputField.inputType || 'text')
     const [selectedField, setSelectedField] = useState(inputField.fields || []);
     const [label, setLabel] = useState(inputField?.label || '')
     const [selectedFieldValue, setSelectedFieldValue] = useState('')
@@ -28,10 +29,10 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
         setFieldType(e.target.value)
 
     }
-    const handleInputType = (e) => {
-        e.preventDefault();
-        setInputType(e.target.value)
-    }
+    // const handleInputType = (e) => {
+    //     e.preventDefault();
+    //     setInputType(e.target.value)
+    // }
     const handleSelectedFieldValue = (e) => {
         e.preventDefault();
         setSelectedFieldValue(e.target.value)
@@ -61,7 +62,7 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
         let inputFieldData = {};
         if (type === 'Input') {
             inputFieldData = {
-                label, type, inputType
+                label, type, inputType: 'text'
             }
         } else if (type === 'Textarea') {
             inputFieldData = {
@@ -69,14 +70,35 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
             }
         } else if (type === 'Select') {
             if (selectedField.length < 1) {
-                return 
+                return
             }
             inputFieldData = {
                 label, type, fields: selectedField
             }
+        } else if (type === 'Time') {
+            inputFieldData = {
+                label, type: 'Input', inputType: 'time'
+            }
+        } else if (type === 'Date') {
+            inputFieldData = {
+                label, type: 'Input', inputType: 'date'
+            }
+        } else if (type === 'Number') {
+            inputFieldData = {
+                label, type: 'Input', inputType: 'number'
+            }
+        } else if (type === 'Email') {
+            inputFieldData = {
+                label, type: 'Input', inputType: 'email'
+            }
+        } else if (type === 'Upload Image') {
+            inputFieldData = {
+                label, type: 'Input', inputType: 'file'
+            }
         }
         inputFieldData = {
             ...inputFieldData,
+            realType: type,
             requirement: required,
             id: inputField.id
         }
@@ -87,6 +109,8 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
         handleClose()
 
     }
+    const oddOptionStyle = 'font-bold'
+    const evenOptionStyle = 'font-bold'
     return (
         <Dialog
             open={open}
@@ -100,11 +124,11 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
                     Update Input Field
                 </div>
                 <div className="relative w-full min-w-[200px] flex flex-col gap-2">
-                    <label className='ml-1'>Label</label>
+                    <label className='ml-1'>Question</label>
                     <input
                         onChange={handleLabel}
                         value={label}
-                        type="text" placeholder="Label" className="input input-bordered input-primary w-full h-11" />
+                        type="text" placeholder="Question" className="input input-bordered input-primary w-full h-11" />
                 </div>
                 <div className="relative w-full min-w-[200px] flex flex-col gap-2">
                     <label className='ml-1'>Type</label>
@@ -112,12 +136,17 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
                         onChange={handleFieldType}
                         value={fieldType}
                         placeholder="Type" className="select select-primary w-full h-11">
-                        <option>Input</option>
-                        <option>Textarea</option>
-                        <option>Select</option>
+                        <option className={oddOptionStyle} value={'Input'}>Short Answer</option>
+                        <option className={evenOptionStyle} value={'Textarea'}>Long Answer</option>
+                        <option className={oddOptionStyle} value={'Select'}>Dropdown</option>
+                        <option className={evenOptionStyle} value={'Time'}>Time</option>
+                        <option className={oddOptionStyle} value={'Date'}>Date</option>
+                        <option className={evenOptionStyle} value={'Number'}>Number</option>
+                        <option className={oddOptionStyle} value={'Email'}>Email</option>
+                        <option className={evenOptionStyle} value={'Upload Image'}>Upload Image</option>
                     </select>
                 </div>
-                <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Input' ? 'flex' : 'hidden'}`}>
+                {/* <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Input' ? 'flex' : 'hidden'}`}>
                     <label className='ml-1'>Input Type</label>
                     <select
                         onChange={handleInputType}
@@ -130,7 +159,7 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
                         <option>file</option>
                         <option>email</option>
                     </select>
-                </div>
+                </div> */}
                 <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Select' ? 'flex' : 'hidden'}`}>
                     <label className='ml-1'>Selected Field</label>
                     <div className={`w-full min-h-5 p-1 rounded-md ${selectedField.length > 0 ? 'gap-2 flex flex-wrap' : 'hidden'}`}>
