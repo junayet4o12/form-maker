@@ -9,6 +9,7 @@ import { signOut } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { useState } from "react";
 import IndividualData from "./IndividualData";
+import TableFormateData from "./TableFormateData";
 const SeeData = () => {
     // /singleUserFormData/:id/:email
     const { id } = useParams();
@@ -52,7 +53,7 @@ const SeeData = () => {
         setShowIndividualDataHideTableFormat(false)
     }
     return (
-        <div>
+        <div >
             {/* img, title, description */}
             <FormBanner img={formDetails?.formBgImg} title={formDetails?.title} description={formDetails?.description} />
 
@@ -63,12 +64,17 @@ const SeeData = () => {
                     <li className={`transition-all duration-300 cursor-pointer border-b-2 ${!showIndividualDataHideTableFormat ? ' border-primary' : 'border-transparent'}`} onClick={handleSetHideIndividualDataShowTableFormat}>Table Format</li>
                 </ul>
             </div>
-            <div>
-                <IndividualData storedFormData={storedFormData} allQuestions={allQuestions} />
-            </div>
-            <div>
-                Table formate Data
-            </div>
+            {
+                showIndividualDataHideTableFormat && <div>
+                    <IndividualData storedFormData={storedFormData} allQuestions={allQuestions} />
+                </div>
+            }
+            {
+                !showIndividualDataHideTableFormat && <div className="flex justify-center items-center gap-2">
+                    <TableFormateData storedFormData={storedFormData} allQuestions={allQuestions} />
+                </div>
+            }
+
 
         </div>
     );
