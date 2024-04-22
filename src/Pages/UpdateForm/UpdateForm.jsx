@@ -27,7 +27,7 @@ const UpdateForm = () => {
     }
     if (user?.email !== formDetails?.userEmail) {
         signOut(auth)
-        navigate('/login')
+        navigate('/accountPortal')
         return
     }
     return (

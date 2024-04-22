@@ -2,7 +2,6 @@
 import FillUpDataCardsDatum from "./FillUpDataCardsDatum";
 
 const FillUpFormDataCard = ({ data, idx, allQuestions }) => {
-    console.log(allQuestions);
     const rearrangedData = [];
 
     allQuestions.forEach(item => {
@@ -16,7 +15,6 @@ const FillUpFormDataCard = ({ data, idx, allQuestions }) => {
         return datum
 
     }
-    console.log();
     return (
         <div className="border-2 border-black rounded-md p-2 w-full max-w-[600px] mx-auto">
             {

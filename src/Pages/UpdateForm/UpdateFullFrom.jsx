@@ -81,7 +81,6 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
         }
         axiosSecure.put(`/updateForm/${formDetails?._id}`, data)
             .then(res => {
-                console.log(res);
                 if (res.status == 200) {
                     Swal.fire({
                         icon: "success",

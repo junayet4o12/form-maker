@@ -6,7 +6,6 @@ import { makeVisibleTime2 } from "../../hooks/makeVisibleTime2";
 
 const TableBody = ({ allQuestions, data, idx: query }) => {
     const rearrangedData = [];
-    console.log(data?.storedTime);
     allQuestions.forEach(item => {
         const foundObject = data?.allData.find(obj => obj.key === item);
         if (foundObject) {

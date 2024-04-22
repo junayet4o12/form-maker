@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputFields }) => {
-    console.log(inputFields);
     const [fieldType, setFieldType] = useState(inputField.realType || 'Input')
     // const [inputType, setInputType] = useState(inputField.inputType || 'text')
     const [selectedField, setSelectedField] = useState(inputField.fields || []);

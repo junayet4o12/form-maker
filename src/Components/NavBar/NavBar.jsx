@@ -86,7 +86,7 @@ const NavBar = () => {
                         {
                             !user && <div className="flex items-center gap-x-1">
 
-                                <NavLink to={'/login'}>
+                                <NavLink to={'/accountPortal'}>
                                     <Button
                                         size="sm"
                                         className="hidden lg:inline-block bg-secondary"
@@ -142,7 +142,7 @@ const NavBar = () => {
                     {navList}
                     {
                         !user && <div className="flex items-center gap-x-1">
-                            <NavLink to={'/login'}>
+                            <NavLink to={'/accountPortal'}>
                                 <Button fullWidth size="sm" className="bg-secondary">
                                     <span>Log in</span>
                                 </Button>

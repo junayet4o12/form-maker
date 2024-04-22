@@ -36,7 +36,7 @@ const SeeData = () => {
     }
     if (user?.email !== formDetails?.userEmail) {
         signOut(auth)
-        navigate('/login')
+        navigate('/accountPortal')
         return
     }
     // function generateArray(n) {

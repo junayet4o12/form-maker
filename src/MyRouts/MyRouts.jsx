@@ -12,6 +12,7 @@ import UserProfile from "../Pages/UserProfile/UserProfile";
 import FillUpForm from "../Pages/FillUpForm/FillUpForm";
 import ThanksMessage from "../Pages/ThanksMessage/ThanksMessage";
 import SeeData from "../Pages/SeeData/SeeData";
+import Authentication from "../Pages/Authentication/Authentication";
 const MyRouts = createBrowserRouter([
   {
     path: "/",
@@ -22,12 +23,8 @@ const MyRouts = createBrowserRouter([
         element: <Home />
       },
       {
-        path: '/login',
-        element: <LogIn />
-      },
-      {
-        path: '/register',
-        element: <Register />
+        path: '/accountPortal',
+        element: <Authentication/>
       },
       {
         path: '/profile',

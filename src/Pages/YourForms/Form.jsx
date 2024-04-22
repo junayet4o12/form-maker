@@ -19,11 +19,11 @@ const Form = ({ form }) => {
     }
     if (user?.email !== form?.userEmail) {
         signOut(auth)
-        navigate('/login')
+        navigate('/accountPortal')
         return
     }
     return (
-        <Card className="mt-6 w-96">
+        <Card className="mt-6 w-96 min-h-[350px]">
             <CardBody>
                 <div className="text-6xl text-black  py-3">
                     <FaWpforms />
@@ -38,7 +38,7 @@ const Form = ({ form }) => {
                     Total fields: {form?.inputFields?.length || 0}
                 </Typography>
                 <Typography>
-                    Description: {form?.description || 'Not given Yet'}
+                    Description: {form?.description.split(' ').slice(0,7).join(' ')+'...' || 'Not given Yet'}
                 </Typography>
             </CardBody>
             <CardFooter className="pt-0 flex flex-wrap">

@@ -8,7 +8,6 @@ const TableFormateData = ({ storedFormData, allQuestions }) => {
     const arrayForSorting = [...storedFormData]
     const shortedData = arrayForSorting.sort((a, b) => -a?.storedTime + b?.storedTime);
     const [giveRealFormData, setGiveRealFormData] = useState(true)
-    console.log(shortedData);
     return (
         <div className="overflow-x-hidden py-7">
             <div>

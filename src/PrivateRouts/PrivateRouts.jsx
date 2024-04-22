@@ -16,7 +16,7 @@ const PrivateRouts = ({ children }) => {
         </div>
 
     }
-    return <Navigate to={'/login'}></Navigate>;
+    return <Navigate to={'/accountPortal'}></Navigate>;
 };
 
 export default PrivateRouts;

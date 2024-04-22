@@ -30,7 +30,7 @@ const WarningModal = ({open,setOpen}) => {
             <span>Later</span>
           </Button>
           <Button
-          onClick={()=> navigate('/login')}
+          onClick={()=> navigate('/accountPortal')}
             className="bg-secondary"
           >
             <span>Log in</span>
