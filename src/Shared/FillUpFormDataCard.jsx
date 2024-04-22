@@ -20,7 +20,7 @@ const FillUpFormDataCard = ({ data, idx, allQuestions }) => {
     return (
         <div className="border-2 border-black rounded-md p-2 w-full max-w-[600px] mx-auto">
             {
-                allQuestions?.map((a, idx) => <p className="flex gap-x-2 flex-wrap border border-black my-2 rounded-md px-1 py-2" key={idx}>{a}: <span className="font-bold"><FillUpDataCardsDatum data={dataForSharingToSibling(a)} /></span> </p>)
+                allQuestions?.map((a, idx) => <div className="flex gap-x-2 flex-wrap border border-black my-2 rounded-md px-1 py-2" key={idx}>{a}: <span className="font-bold"><FillUpDataCardsDatum data={dataForSharingToSibling(a)} /></span> </div>)
             }
             {/* {
                 rearrangedData?.map((datum, idx) => {
