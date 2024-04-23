@@ -10,7 +10,6 @@ const FillUpFormInputField = ({ inputField, everyData, setEveryData }) => {
     const [selectedOption, setSelectedOption] = useState('');
     const handleOptionChange = (e) => {
         e.preventDefault();
-        console.log(e.target.value);
         setSelectedOption(e.target.value)
                 handleChange(e)
     };
