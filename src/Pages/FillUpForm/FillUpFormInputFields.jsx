@@ -20,7 +20,7 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
     const [data, setAllData] = useState([])
     const [everyData, setEveryData] = useState([])
     const onSubmit = async (data) => {
-        setSubmitting(true)
+        // setSubmitting(true)
         const promisedData = everyData.map(async ({ key, value, type }) => {
             let restoredData = {}
             if (type === "file") {

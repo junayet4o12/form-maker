@@ -5,6 +5,12 @@ import { GrDocumentUpdate } from "react-icons/gr";
 import UpdateModalForm from "./UpdateModalForm";
 const UpdateFormInputField = ({ inputField, setInputFields, inputFields }) => {
     const [openModal, setOpenModal] = useState(false)
+    const [selectedOption, setSelectedOption] = useState('');
+
+    // Function to handle selection change
+    const handleOptionChange = (e) => {
+        setSelectedOption(e.target.value);
+    };
     const handleDeleteField = () => {
         setInputFields(inputFields.filter(field => field.id !== inputField.id))
     }
@@ -26,13 +32,26 @@ const UpdateFormInputField = ({ inputField, setInputFields, inputFields }) => {
                         }
                     </select>
                 }
+                {
+                    inputField?.type === 'Multiple Choice' && <div className="w-full bg-white py-1.5 px-3 rounded-lg">
+                        {
+                            inputField?.fields.map(field => <div className="py-1" key={field.id}>
+                                <input type="radio" value={field.value}
+                                    checked={selectedOption === field.value}
+                                    onChange={handleOptionChange}
+                                />
+                                <label>{field.value}</label>
+                            </div>)
+                        }
+                    </div>
+                }
 
                 <button onClick={handleDeleteField} className="btn text-xl px-3 bg-white">X</button>
                 <button onClick={() => setOpenModal(true)} className="btn text-xl px-3 bg-white"><GrDocumentUpdate /></button>
             </div>
             <UpdateModalForm open={openModal} setOpen={setOpenModal} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />
         </div>
-    ); 
+    );
 };
 
 export default UpdateFormInputField;

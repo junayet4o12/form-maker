@@ -74,6 +74,13 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
             inputFieldData = {
                 label, type, fields: selectedField
             }
+        } else if (type === 'Multiple Choice') {
+            if (selectedField.length < 1) {
+                return
+            }
+            inputFieldData = {
+                label, type, fields: selectedField
+            }
         } else if (type === 'Time') {
             inputFieldData = {
                 label, type: 'Input', inputType: 'time'
@@ -138,6 +145,7 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
                         <option className={oddOptionStyle} value={'Input'}>Short Answer</option>
                         <option className={evenOptionStyle} value={'Textarea'}>Long Answer</option>
                         <option className={oddOptionStyle} value={'Select'}>Dropdown</option>
+                        <option className={evenOptionStyle} value={'Multiple Choice'}>Multiple Choice</option>
                         <option className={evenOptionStyle} value={'Time'}>Time</option>
                         <option className={oddOptionStyle} value={'Date'}>Date</option>
                         <option className={evenOptionStyle} value={'Number'}>Number</option>
@@ -159,7 +167,7 @@ const UpdateModalForm = ({ open, setOpen, inputField, setInputFields, inputField
                         <option>email</option>
                     </select>
                 </div> */}
-                <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Select' ? 'flex' : 'hidden'}`}>
+                <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Select' ? 'flex' : `${fieldType==='Multiple Choice' ? 'flex' : 'hidden'}`}`}>
                     <label className='ml-1'>Selected Field</label>
                     <div className={`w-full min-h-5 p-1 rounded-md ${selectedField.length > 0 ? 'gap-2 flex flex-wrap' : 'hidden'}`}>
                         {

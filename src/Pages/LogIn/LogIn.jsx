@@ -59,10 +59,10 @@ const LogIn = ({ isLogIn }) => {
                     initial={{ y: -100, }}
                     whileInView={{ y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className=" mx-auto   ">
+                    className=" mx-auto">
 
                     <div className="mx-auto w-[100%] pt-5 pb-0 text-black  ">
-                        <h2 className="text-3xl font-bold uppercase  text-center mb-6 text-gray-600 ">Log In</h2>
+                        <h2 className="text-4xl font-bold uppercase  text-center mb-6 text-gray-600 ">Log In</h2>
                         <div className="flex flex-col justify-center items-center gap-5 text-sm font-medium">
 
 
@@ -70,19 +70,20 @@ const LogIn = ({ isLogIn }) => {
                             <div className="w-full">
                                 <p className="px-2 pb-1 text-sm">Write your email</p>
                                 <div className="relative w-full">
-                                    <input required name="email" {...register("email", { required: true })} className="w-full     bg-gray-200 p-3 px-10 rounded-lg " type="email" placeholder="email" />
+                                    <input required name="email" {...register("email", { required: true })} className="bg-secondary/20 w-full p-3 px-10 rounded-none" type="email" placeholder="email" />
+                                    
                                     {errors.email && <span className='text-red-500 text-sm'>Email is required</span>}
-                                    <p className='text-xl absolute top-3.5 left-3 '><HiOutlineMail></HiOutlineMail></p>
+                                    <p className='text-xl absolute top-3.5 left-3'><HiOutlineMail></HiOutlineMail></p>
                                 </div>
                             </div>
 
                             <div className="w-full">
-                                <p className="px-2 pb-1 text-sm">Write your given pass </p>
+                                <p className="px-2 pb-1 text-sm">Write your given pass</p>
                                 <div className="relative w-full  ">
                                     <input
                                         type={showPass ? 'password' : 'text'} name="password" {...register("password", {
                                             required: true
-                                        })} className="w-full     bg-gray-200 p-3 px-10 rounded-lg " placeholder="password" />
+                                        })} className="w-full p-3 px-10 rounded-none bg-secondary/20" placeholder="password" />
                                     <p className='text-xl absolute top-3 left-3 '><RiLockPasswordLine></RiLockPasswordLine></p>
                                     <p onClick={() => (setShowPass(!showPass))} className={`absolute top-2 right-0 mr-2 cursor-pointer text-lg  p-1`}>{showPass ? <AiOutlineEye></AiOutlineEye> : <AiOutlineEyeInvisible></AiOutlineEyeInvisible>}</p>
                                     {errors?.password?.type === 'required' && <span className='text-red-500 text-sm'>Password invalid</span>}
@@ -95,6 +96,7 @@ const LogIn = ({ isLogIn }) => {
                                         <p className='text-sm font-medium'>Don&apos;t have an account? <br /> <span onClick={() => setLogInNotRegister(false)} className='font-bold Register text-gray-700 hover:text-gray-900 cursor-pointer flex gap-1 hover:underline items-center'><GiArchiveRegister></GiArchiveRegister>Register</span></p>
 
                                     </div>
+                                    
                                 </div>
                             </div>
                             <div className='w-full flex flex-col  justify-center items-center gap-2'>

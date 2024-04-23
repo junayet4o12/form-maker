@@ -74,7 +74,6 @@ const FormDetails = () => {
                 icon: '✌️',
             })
         } catch (err) {
-            console.error('Failed to copy: ', err);
         }
     };
     return (

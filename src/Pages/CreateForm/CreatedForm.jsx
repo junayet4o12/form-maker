@@ -61,7 +61,6 @@ const CreatedForm = () => {
                 icon: '✌️',
             })
         } catch (err) {
-            console.error('Failed to copy: ', err);
         }
     };
     const handleCreateForm = async () => {

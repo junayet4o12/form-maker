@@ -76,6 +76,13 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
             inputFieldData = {
                 label, type, fields: selectedField
             }
+        } else if (type === 'Multiple Choice') {
+            if (selectedField.length < 1) {
+                return
+            }
+            inputFieldData = {
+                label, type, fields: selectedField
+            }
         } else if (type === 'Time') {
             inputFieldData = {
                 label, type: 'Input', inputType: 'time'
@@ -143,6 +150,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
                         <option className={oddOptionStyle} value={'Input'}>Short Answer</option>
                         <option className={evenOptionStyle} value={'Textarea'}>Long Answer</option>
                         <option className={oddOptionStyle} value={'Select'}>Dropdown</option>
+                        <option className={evenOptionStyle} value={'Multiple Choice'}>Multiple Choice</option>
                         <option className={evenOptionStyle} value={'Time'}>Time</option>
                         <option className={oddOptionStyle} value={'Date'}>Date</option>
                         <option className={evenOptionStyle} value={'Number'}>Number</option>
@@ -164,8 +172,8 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
                         <option>email</option>
                     </select>
                 </div> */}
-                <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Select' ? 'flex' : 'hidden'}`}>
-                    <label className='ml-1'>Selected Field</label>
+                <div className={`relative w-full min-w-[200px] flex-col gap-2 ${fieldType === 'Select' ? 'flex' : `${fieldType==='Multiple Choice' ? 'flex' : 'hidden'}`}`}>
+                    <label className='ml-1'>Options</label>
                     <div className={`w-full min-h-5 p-1 rounded-md ${selectedField.length > 0 ? 'gap-2 flex flex-wrap' : 'hidden'}`}>
                         {
                             selectedField.map(field => <span key={field.id} className='bg-blue-700 text-white px-1 rounded flex gap-2 justify-center items-center'><span
@@ -176,7 +184,7 @@ const AddFieldModal = ({ open, setOpen, setInputFields, inputFields }) => {
                     <input
                         onChange={handleSelectedFieldValue}
                         value={selectedFieldValue}
-                        placeholder="Selected Field" className="input input-primary w-full h-11" />
+                        placeholder="Option" className="input input-primary w-full h-11" />
                     <div
                         onClick={handleStoreSelectedValue}
                         className='w-max border border-black px-2 h-11 flex justify-center items-center rounded-r-lg absolute bottom-0 right-0 hover:bg-gray-300 transition-all duration-300 cursor-pointer active:scale-90'>

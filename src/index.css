@@ -11,3 +11,7 @@
 .active .navlink {
     border-bottom: 2px solid #fe3938;
 }
+
+.inputStyle {
+    background: black  !important;
+}

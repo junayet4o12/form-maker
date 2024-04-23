@@ -24,7 +24,7 @@ const Form = ({ form }) => {
     }
     return (
         <Card className="mt-6 w-96 min-h-[350px]">
-            <CardBody>
+            <CardBody className="flex-grow">
                 <div className="text-6xl text-black  py-3">
                     <FaWpforms />
                 </div>
