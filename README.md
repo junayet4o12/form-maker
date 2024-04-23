@@ -21,15 +21,15 @@ Welcome to Formify, the ultimate web page for creating your own forms and collec
 To run the app locally or in a production environment, ensure the following environment variables are set in .env.local file:
 
 - **Firebase Environment Variables:**
-  VITE_apiKey
-  VITE_authDomain
-  VITE_projectId
-  VITE_storagebucket
-  VITE_messagingSenderId
-  VITE_appId
+  <br> VITE_apiKey
+  <br> VITE_authDomain
+  <br> VITE_projectId
+  <br> VITE_storagebucket
+  <br> VITE_messagingSenderId
+  <br> VITE_appId
 
-- **Imagebb hosting api:** Provide credentials or URLs for image hosting services used within the app.
-  VITE_IMG_HOSTING_KEY
+- **ImgBB hosting api:** Provide credentials or URLs for image hosting services used within the app.
+  <br> VITE_IMG_HOSTING_KEY
 
 
 ## Getting Started
