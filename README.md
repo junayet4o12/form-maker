@@ -1,8 +1,13 @@
 # Formify App Readme
 
-Welcome to Formify web page, your ultimate web page for making you own form and collecting data from others through the form! It would an alternative for google forms with his more user friendliness and speed. This React project, powered by Vite, is designed to help you to create and update form as your wish and can collect data from the others by sharing the form with people. Leveraging Firebase for authentication, Node.js, express.js, mongoDB, JWT and Mongoose for backend services and ImgBB for image hosting, Formify integrates a plethora of features to enhance your Data collecting needs. Our site is based on community as well.Welcome to Formify, the ultimate web page for creating your own forms and collecting data from others. It is a great alternative to Google Forms, offering more user-friendliness and speed. This React project is powered by Vite, and is designed to allow you to create and update forms as you wish, and collect data from others by sharing the form with people. Formify leverages Firebase for authentication, as well as Node.js, Express.js, MongoDB, JWT and Mongoose for backend services, and ImgBB for image hosting. With a plethora of features to enhance your data-collecting needs, Formify is also a community-based site.
+Welcome to Formify, the ultimate web page for creating your own forms and collecting data from others. It is a great alternative to Google Forms, offering more user-friendliness and speed. This React project is powered by Vite, and is designed to allow you to create and update forms as you wish, and collect data from others by sharing the form with people. Formify leverages Firebase for authentication, as well as Node.js, Express.js, MongoDB, JWT and Mongoose for backend services, and ImgBB for image hosting. With a plethora of features to enhance your data-collecting needs, Formify is also a community-based site.
 
-- **1. Login and Register:** Firebase has implemented for authentication. The login and register system has become more secure after implementing JWT in backend to secure api.
+## Features
+- **1. Login and Register:** Firebase has implemented authentication. The login and registration system is now more secure after implementing JWT in the backend to secure the API.
+- **2. Create and update Form:** The user has complete control over creating and sharing customizable forms to collect data, and can confidently make changes to the form as needed.
+- **3. Showing collecting data:** The owner of the form has the ability to view collected data both individually and in table formats, with a user-friendly experience.
+- **4. Backend:** MongoDB was used as the database while Node.js, Express.js and Mongoose were utilized to optimize MongoDB's functionality. Mongoose streamlines the backend by rejecting unnecessary data.
+- **5. Single page application:** This project is a single-page application made using React, React Router DOM, and many other related technologies. This makes the project more user-friendly and error-free.
 
 ## Live Preview: [Formify](https://formify-99f7d.web.app/)
 
