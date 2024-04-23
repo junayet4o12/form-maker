@@ -4,10 +4,15 @@ Welcome to Formify, the ultimate web page for creating your own forms and collec
 
 ## Features
 - **1. Login and Register:** Firebase has implemented authentication. The login and registration system is now more secure after implementing JWT in the backend to secure the API.
+
 - **2. Create and update Form:** The user has complete control over creating and sharing customizable forms to collect data, and can confidently make changes to the form as needed.
+
 - **3. Showing collecting data:** The owner of the form has the ability to view collected data both individually and in table formats, with a user-friendly experience.
+
 - **4. Backend:** MongoDB was used as the database while Node.js, Express.js and Mongoose were utilized to optimize MongoDB's functionality. Mongoose streamlines the backend by rejecting unnecessary data.
+
 - **5. Single page application:** This project is a single-page application made using React, React Router DOM, and many other related technologies. This makes the project more user-friendly and error-free.
+
 
 ## Live Preview: [Formify](https://formify-99f7d.web.app/)
 
