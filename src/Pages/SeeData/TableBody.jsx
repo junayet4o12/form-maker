@@ -19,12 +19,12 @@ const TableBody = ({ allQuestions, data, idx: query }) => {
     }
     return (
 
-        <tr className={`${query % 2 === 0 ? 'bg-secondary/20' : 'bg-secondary text-white'}`}>
-            <th>{query}</th>
+        <tr className={`${query % 2 === 0 ? 'bg-white' : 'bg-secondary text-white'}`}>
+            <th>{data?.id}</th>
             {
                 allQuestions?.map((a, idx) => <td key={idx}> <span><FillUpDataCardsDatum data={dataForSharingToSibling(a)} /></span> </td>)
             }
-            <td>{makeVisibleTime2(data?.storedTime)}</td>
+            <td className="whitespace-nowrap">{makeVisibleTime2(data?.storedTime)}</td>
         </tr>
 
     );

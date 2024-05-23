@@ -7,9 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import InputField from "./InputField";
 import Swal from "sweetalert2";
 import formBg from '../../assets/bannerImg.jpg'
-import { BiCopyAlt } from "react-icons/bi";
-import { useState } from "react";
-import { toast } from 'react-hot-toast'
 import FormBanner from "../../Shared/FormBanner";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { signOut } from "firebase/auth";
@@ -17,7 +14,6 @@ import auth from "../../firebase/firebase.config";
 const FormDetails = () => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure()
-    const [isCopied, setIsCopied] = useState(false)
     const navigate = useNavigate()
     const { user } = useAuth()
     const { data: formDetails, isLoading: formDetailsIsLoading } = useQuery({
@@ -63,33 +59,16 @@ const FormDetails = () => {
             }
         });
     }
-    const handleShowData = () => {
-        navigate(`/responses/${id}`)
-    }
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(`https://formify-99f7d.web.app/fillUpForm/${id}`);
-            setIsCopied(true)
-            toast.success('Shared Form link copied successfully!!', {
-                icon: '✌️',
-            })
-        } catch (err) {
-        }
-    };
     return (
-        <div className={`transition-all duration-500 w-full py-10`}>
+        <div className={`transition-all duration-500 w-full py-10 px-5`}>
             <FormBanner img={formDetails?.formBgImg || formBg} title={formDetails?.title} description={formDetails?.description} />
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 max-w-[700px] mx-auto">
                 {
                     formDetails?.inputFields.map(inputField => <InputField key={inputField.id} inputField={inputField} setInputFields={''} inputFields={''} />)
                 }
-                <div className=" max-w-[500px] mx-auto grid grid-cols-2 w-full gap-2 gap-y-5">
-                    <button onClick={handleUpdate} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-secondary/80 border-none hover:bg-secondary     ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Update</button>
-                    <button onClick={handleDelete} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-primary/80 border-none hover:bg-primary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Delete</button>
-                    <button onClick={handleCopy} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-primary/80 border-none hover:bg-primary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>{
-                        isCopied ? 'Copied' : 'Copy'
-                    } <span className="text-lg"><BiCopyAlt /></span></button>
-                    <button onClick={handleShowData} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-secondary/80 border-none hover:bg-secondary    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Responses</button>
+                <div className=" max-w-[700px] mx-auto grid grid-cols-2 w-full gap-2 gap-y-5   py-5 rounded-sm bg-black/20 border border-primary">
+                    <button onClick={handleUpdate} className={`mx-auto btn w-max min-w-[130px] btn-primary border-primary/80 hover:border-primary bg-primary/10 text-white hover:bg-primary/20  rounded-sm     ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Update</button>
+                    <button onClick={handleDelete} className={`mx-auto btn w-max min-w-[130px] btn-primary bg-primary/95 border-none hover:bg-primary rounded-sm    ${user?.email === formDetails.userEmail ? `scale-100` : 'scale-x-0'} `}>Delete</button>
                 </div>
             </div>
         </div>

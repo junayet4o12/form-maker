@@ -22,7 +22,7 @@ const NavBar = () => {
             () => window.innerWidth >= 960 && setOpenNav(false),
         );
     }, []);
-
+    const navLinkUnderLine = "bg-primary h-[1.7px] navLinkUnderline duration-500 transition-all"
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
 
@@ -40,8 +40,9 @@ const NavBar = () => {
                                 <FaHome />  Home
                             </span>
                         </Typography>
+                        <div className={`${navLinkUnderLine}`}></div>
                     </NavLink>
-                    <NavLink to={'/YourForms'}>
+                    <NavLink to={'/myForms'}>
                         <Typography
                             as="li"
                             variant="small"
@@ -49,9 +50,10 @@ const NavBar = () => {
                             className="p-1 font-normal navlink transition-all duration-500"
                         >
                             <span className="flex items-center gap-x-1">
-                                <FaWpforms />   Your Forms
+                                <FaWpforms />   My Forms
                             </span>
                         </Typography>
+                        <div className={`${navLinkUnderLine}`}></div>
                     </NavLink>
                     <NavLink to={'/createForm'}>
                         <Typography
@@ -64,6 +66,7 @@ const NavBar = () => {
                                 <IoCreateOutline />   Create Form
                             </span>
                         </Typography>
+                        <div className={`${navLinkUnderLine}`}></div>
                     </NavLink>
                 </>
             }
@@ -71,9 +74,9 @@ const NavBar = () => {
     );
 
     return (
-        <div className="max-h-[768px] w-full">
-            <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
-                <div className="flex items-center justify-between text-blue-gray-900">
+        <div className="max-h-[768px] w-full ">
+            <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 ">
+                <div className="flex items-center justify-between text-blue-gray-900 ">
                     <Typography
                         onClick={() => navigate('/')}
 
@@ -89,7 +92,7 @@ const NavBar = () => {
                                 <NavLink to={'/accountPortal'}>
                                     <Button
                                         size="sm"
-                                        className="hidden lg:inline-block bg-secondary"
+                                        className="hidden lg:inline-block bg-secondary rounded-sm"
                                     >
                                         <span>Log in</span>
                                     </Button>
@@ -143,7 +146,7 @@ const NavBar = () => {
                     {
                         !user && <div className="flex items-center gap-x-1">
                             <NavLink to={'/accountPortal'}>
-                                <Button fullWidth size="sm" className="bg-secondary">
+                                <Button fullWidth size="sm" className="bg-secondary rounded-sm">
                                     <span>Log in</span>
                                 </Button>
                             </NavLink>

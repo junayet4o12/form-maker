@@ -1,5 +1,4 @@
 // import React from 'react';
-import formBg from '../../assets/formbg.jpg'
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { Input, Textarea } from '@material-tailwind/react';
@@ -7,8 +6,6 @@ import Swal from 'sweetalert2';
 import CreatedForm from './CreatedForm';
 import ComponentsTitle from '../../Shared/ComponentsTitle';
 import { useState } from 'react';
-import { TiTickOutline } from "react-icons/ti";
-import createCardImg from '../../assets/createForm.jpg'
 const CreateForm = () => {
     const [fieldType, setFieldType] = useState('Input')
     const [selectedField, setSelectedField] = useState([]);
@@ -66,8 +63,10 @@ const CreateForm = () => {
 
 
     // }
+    
     return (
         <div className='mb-10'>
+            
             <ComponentsTitle title1={'Create a Form'} title2={'Through'} title3={'Formify'} description={`Easily design bespoke forms using Formify's intuitive interface. Streamline data collection and enhance collaboration effortlessly. Get started with Formify today!`} />
             <div className=" px-7 flex justify-center gap-10 flex-col-reverse lg:flex-row">
                 {/* <div style={{ backgroundImage: `url(${formBg})` }} className="bg-cover bg-center   rounded-md font-bold text-sm w-full max-w-[550px]   mx-auto flex flex-col gap-3 border-[1.5px] border-gray-400 shadow-xl shadow-[#bdb9b9] ">
@@ -160,7 +159,7 @@ const CreateForm = () => {
                 </div> */}
                 <div className='w-full relative'>
                     <div className='w-full'>
-                        <CreatedForm  />
+                        <CreatedForm />
                         {/* <div className='w-full hidden lg:block'>
                             <img className={`${!formTitle ? 'block' : 'hidden'} ${inputFields.length < 1 ? 'block' : 'hidden'} w-2/3 mx-auto`} src={createCardImg} alt="" />
                         </div> */}

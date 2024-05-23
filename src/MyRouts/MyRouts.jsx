@@ -1,8 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../MainLayout/MainLayout";
 import Home from "../Pages/Home/Home"
-import LogIn from "../Pages/LogIn/LogIn";
-import Register from "../Pages/Register/Register";
 import CreateForm from "../Pages/CreateForm/CreateForm";
 import PrivateRouts from "../PrivateRouts/PrivateRouts";
 import YourForms from "../Pages/YourForms/YourForms";
@@ -13,6 +11,7 @@ import FillUpForm from "../Pages/FillUpForm/FillUpForm";
 import ThanksMessage from "../Pages/ThanksMessage/ThanksMessage";
 import SeeData from "../Pages/SeeData/SeeData";
 import Authentication from "../Pages/Authentication/Authentication";
+import SubOrdinate from "../Pages/Subordinate/SubOrdinate";
 const MyRouts = createBrowserRouter([
   {
     path: "/",
@@ -24,14 +23,14 @@ const MyRouts = createBrowserRouter([
       },
       {
         path: '/accountPortal',
-        element: <Authentication/>
+        element: <Authentication />
       },
       {
         path: '/profile',
         element: <PrivateRouts><UserProfile /></PrivateRouts>
       },
       {
-        path: '/yourForms',
+        path: '/myForms',
         element: <PrivateRouts><YourForms /></PrivateRouts>
       },
       {
@@ -41,6 +40,10 @@ const MyRouts = createBrowserRouter([
       {
         path: '/updateForm/:id',
         element: <PrivateRouts><UpdateForm /></PrivateRouts>
+      },
+      {
+        path: '/subordinate/:id',
+        element: <PrivateRouts><SubOrdinate /></PrivateRouts>
       },
       {
         path: '/createForm',

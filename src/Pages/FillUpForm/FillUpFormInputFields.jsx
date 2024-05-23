@@ -9,8 +9,11 @@ import FillUpDataCardsDatum from "../../Shared/FillUpDataCardsDatum";
 import FillUpFormDataCard from "../../Shared/FillUpFormDataCard";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
-const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
+import { removeData } from "../../hooks/manageLocalStorage";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+const FillUpFormInputFields = ({ inputFields, userEmail, _id, alreadyFilledUpData }) => {
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure()
     const [submitting, setSubmitting] = useState(false)
     const navigate = useNavigate()
     const { register, handleSubmit, reset, } = useForm()
@@ -18,7 +21,7 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
     const imgHostingApi = `https://api.imgbb.com/1/upload?key=${imgHostingKey}`;
     const { user } = useAuth()
     const [data, setAllData] = useState([])
-    const [everyData, setEveryData] = useState([])
+    const [everyData, setEveryData] = useState(alreadyFilledUpData)
     const onSubmit = async (data) => {
         // setSubmitting(true)
         const promisedData = everyData.map(async ({ key, value, type }) => {
@@ -54,6 +57,16 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
             .then(res => {
                 toast.success("Submitted Successfully!");
                 setSubmitting(false)
+                if (user) {
+                    axiosSecure.put(`/removeFillingUpFormData/${user?.email}/${_id}`)
+                        .then(() => {
+
+                        })
+                        .catch(() => {
+
+                        })
+                }
+                removeData(_id)
                 navigate(`/thanks/${_id}`)
             })
             .catch(err => {
@@ -63,11 +76,11 @@ const FillUpFormInputFields = ({ inputFields, userEmail, _id }) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
             {
-                inputFields?.map((inputField, idx) => <FillUpFormInputField inputField={inputField} key={idx} everyData={everyData} setEveryData={setEveryData} />)
+                inputFields?.map((inputField, idx) => <FillUpFormInputField inputField={inputField} key={idx} _id={_id} everyData={everyData} setEveryData={setEveryData} alreadyFilledUpData={alreadyFilledUpData} />)
             }
-            <div className="px-2 sm:px-0 w-full min-w-[200px] max-w-[500px] mx-auto">
+            <div className="px-2 sm:px-0 w-full min-w-[200px]   mx-auto">
                 {
-                    submitting ? <p className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}><span className="loading loading-bars loading-base text-white"></span> <span className="loading loading-bars loading-base text-white"></span></p> : <button className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full min-w-[200px] max-w-[500px] mx-auto my-5 `}>Submit</button>
+                    submitting ? <p className={`btn btn-primary bg-primary/95 border-none hover:bg-primary w-full min-w-[200px]   mx-auto my-5  rounded-sm`}><span className="loading loading-bars loading-base text-white"></span> <span className="loading loading-bars loading-base text-white"></span></p> : <button className={`btn btn-primary bg-primary/95 border-none hover:bg-primary w-full min-w-[200px]   mx-auto my-5 text-white rounded-sm`}>Submit</button>
                 }
             </div>
 

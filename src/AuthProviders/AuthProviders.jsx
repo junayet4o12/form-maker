@@ -10,6 +10,7 @@ const AuthProviders = ({ children }) => {
     const axiosPublic = useAxiosPublic()
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [refetchUser, setRefetchUser] = useState(0)
     // const axiosPublic = useAxiosPublic();
 
     const createUser = (email, pass) => {
@@ -49,8 +50,8 @@ const AuthProviders = ({ children }) => {
         return () => {
             return unsubscribe()
         }
-    }, [axiosPublic])
-    const authInfo = { user, loading, createUser, loginUser, logOut, googleLogIn };
+    }, [axiosPublic, refetchUser])
+    const authInfo = { user, loading, createUser, loginUser, logOut, googleLogIn,refetchUser, setRefetchUser };
 
 
     return (

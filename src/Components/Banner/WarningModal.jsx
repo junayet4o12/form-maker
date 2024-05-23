@@ -4,40 +4,46 @@
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
-const WarningModal = ({open,setOpen}) => {
-    const navigate = useNavigate()
-    const handleClose = () => {
-        setOpen(false)
-    }
-    return (
-        <Dialog
-        open={open}
-        size={'xs'}
-        handler={handleClose}
-        
-      >
-        <DialogHeader className="text-primary/90">You're not logged in yet!!</DialogHeader>
-        <DialogBody>
-        Please log in to our webpage using your credentials to access the product addition feature. Your contribution is invaluable to us, and we appreciate your effort in enriching our platform. Thank you for your cooperation and support.
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleClose}
-            className="mr-1"
-          >
-            <span>Later</span>
-          </Button>
-          <Button
-          onClick={()=> navigate('/accountPortal')}
-            className="bg-secondary"
-          >
-            <span>Log in</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
-    );
+const WarningModal = ({ open, setOpen }) => {
+  const navigate = useNavigate()
+  const handleClose = () => {
+    setOpen(false)
+  }
+  return (
+    <Dialog
+      open={open}
+      size={'xs'}
+      handler={handleClose}
+      className="rounded-sm relative bg-black/50 border-primary/50 border-[2px] border-double"
+    >
+      <div>
+        <div className="">
+          <DialogHeader className="text-primary">You're not logged in yet!!</DialogHeader>
+          <DialogBody className="text-white">
+          Please login to Formify to create your own forms and share them with others for collecting data. Logging in also provides access to additional features.
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="text"
+              color="red"
+              onClick={handleClose}
+              className="mr-3 rounded-sm border border-primary/60 bg-primary/10 hover:border-primary"
+            >
+              <span className="text-white ">Later</span>
+            </Button>
+            <Button
+              onClick={() => navigate('/accountPortal')}
+              className="bg-primary/80 hover:bg-primary rounded-sm border border-primary"
+            >
+              <span>Log in</span>
+            </Button>
+          </DialogFooter>
+        </div>
+        <div className="absolute top-0  blur-2xl w-full h-full -z-10">
+        </div>
+      </div>
+    </Dialog>
+  );
 };
 
 export default WarningModal;

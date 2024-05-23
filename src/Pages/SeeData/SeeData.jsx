@@ -7,9 +7,10 @@ import FillUpFormDataCard from "../../Shared/FillUpFormDataCard";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { signOut } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IndividualData from "./IndividualData";
 import TableFormateData from "./TableFormateData";
+import ComponentsTitle from "../../Shared/ComponentsTitle";
 const SeeData = () => {
     // /singleUserFormData/:id/:email
     const { id } = useParams();
@@ -20,12 +21,12 @@ const SeeData = () => {
     const { data: storedFormData = [], isLoading: storedFormDataIsLoading, refetch } = useQuery({
         queryKey: [user, `this forms stored Data ${id}`],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/singleUserFormData/${id}/${user?.email}`)
+            const res = await axiosSecure.get(`/singleUserFormData/${id}`)
             return res?.data
         }
     })
     const { data: formDetails, isLoading: formDetailsIsLoading } = useQuery({
-        queryKey: [user, `Thanks for Fill up ${id}`],
+        queryKey: [user, ` Filling up ${id}`],
         queryFn: async () => {
             const res = await axiosSecure.get(`/formDetails/${id}`)
             return res?.data
@@ -35,10 +36,14 @@ const SeeData = () => {
         return <Loading />
     }
     if (user?.email !== formDetails?.userEmail) {
-        signOut(auth)
-        navigate('/accountPortal')
-        return
+        if (!formDetails?.viewers?.find(viewer => viewer === user?.email)) {
+            signOut(auth)
+            navigate('/accountPortal')
+            return
+        }
+
     }
+
     // function generateArray(n) {
     //     return Array.from(Array(n).keys());
     // }
@@ -55,13 +60,13 @@ const SeeData = () => {
     return (
         <div >
             {/* img, title, description */}
-            <FormBanner img={formDetails?.formBgImg} title={formDetails?.title} description={formDetails?.description} />
+            
 
-            <h2 className="text-2xl font-bold text-center pt-5">Stored Data</h2>
+            <ComponentsTitle title1={'Stored Data'} title2={'Of'} title3={`"${formDetails?.title}"`} />
             <div>
-                <ul className="flex gap-5 justify-center items-center py-4">
-                    <li className={`transition-all duration-300 cursor-pointer border-b-2 ${showIndividualDataHideTableFormat ? ' border-primary' : 'border-transparent'}`} onClick={handleSetShowIndividualDataHideTableFormat}>Individual Data</li>
-                    <li className={`transition-all duration-300 cursor-pointer border-b-2 ${!showIndividualDataHideTableFormat ? ' border-primary' : 'border-transparent'}`} onClick={handleSetHideIndividualDataShowTableFormat}>Table Format</li>
+                <ul className="flex gap-5 justify-center items-center pt-2 text-white">
+                    <li className={`transition-all duration-300 cursor-pointer border-b-2 ${showIndividualDataHideTableFormat ? ' border-primary' : 'border-transparent'}`} onClick={handleSetShowIndividualDataHideTableFormat}>Individual Data({storedFormData?.length || 0})</li>
+                    <li className={`transition-all duration-300 cursor-pointer border-b-2 ${!showIndividualDataHideTableFormat ? ' border-primary' : 'border-transparent'}`} onClick={handleSetHideIndividualDataShowTableFormat}>Table Format({storedFormData?.length || 0})</li>
                 </ul>
             </div>
             {
@@ -71,7 +76,7 @@ const SeeData = () => {
             }
             {
                 !showIndividualDataHideTableFormat && <div className="flex justify-center items-center gap-2">
-                    <TableFormateData storedFormData={storedFormData} allQuestions={allQuestions} />
+                    <TableFormateData storedFormData={storedFormData} allQuestions={allQuestions} formDetails={formDetails} />
                 </div>
             }
 

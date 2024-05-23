@@ -6,11 +6,9 @@ import FormBanner from "../../Shared/FormBanner";
 import { millisecondMaker } from "../../hooks/milisecondMaker";
 import FillUpFormInputFields from "./FillUpFormInputFields";
 import RemainingTime from "../../Shared/RemainingTime/RemainingTime";
-import { makeVisibleTime } from "../../hooks/makeVisibleTime";
 import { makeVisibleTime2 } from "../../hooks/makeVisibleTime2";
-import TimerLoader from "../../Shared/LottieAnimation/TimerLoader";
 
-const FillUpFullForm = ({ formDetails }) => {
+const FillUpFullForm = ({ formDetails,alreadyFilledUpData }) => {
     const { inputFields, userEmail, _id, enabledDate, enabledTime, disabledDate, disabledTime } = formDetails;
     const [disabledTimeInMillisecond, setDisabledTimeMillisecond] = useState(0)
     const [enabledTimeInMillisecond, setEnabledTimeMillisecond] = useState(0)
@@ -37,12 +35,12 @@ const FillUpFullForm = ({ formDetails }) => {
         }
     }, []);
     return (
-        <div className="py-10">
-            <div className="relative min-h-[200px] max-w-[500px] min-w-[200px] mx-auto">
+        <div className="pb-10 max-w-[700px] mx-auto">
+            <div className="relative min-h-[230px] min-w-[200px] mx-auto">
                 <FormBanner img={formDetails?.formBgImg} title={formDetails?.title} description={formDetails?.description} />
 
                 {
-                    enabledTimeInMillisecond < 0 && <div className="absolute top-0 left-0 text-white text-sm flex gap-2 p-0.5 px-2 bg-black/50">
+                    enabledTimeInMillisecond < 0 && <div className="absolute top-1.5 left-1.5 text-white text-sm flex gap-2 p-0.5 px-2 bg-black/50">
                         Form will end after: <RemainingTime time1={disabledDate} time2={disabledTime} />
                     </div>
                 }
@@ -58,12 +56,12 @@ const FillUpFullForm = ({ formDetails }) => {
             </div>
             {
                 disabledTimeInMillisecond < 0 ? <div className=" flex justify-center items-center gap-2 flex-col py-5">
-                    <h2 className="flex flex-col text-center"><span className="text-2xl font-bold">Times up at </span> <span className="text-base">{makeVisibleTime2(millisecondMaker(disabledDate, disabledTime))}</span></h2>
-                    <p className="text-sm font-bold">This form is not available for collecting data anymore!!</p>
+                    <h2 className="flex flex-col text-center text-white"><span className="text-2xl font-bold">Times up at </span> <span className="text-base">{makeVisibleTime2(millisecondMaker(disabledDate, disabledTime))}</span></h2>
+                    <p className="text-sm font-bold text-white">This form is not available for collecting data anymore!!</p>
                 </div> : enabledTimeInMillisecond >= 0 ? <div className=" flex justify-center items-center gap-2 flex-col py-5">
-                    <h2 className="flex flex-col text-center"><span className="text-2xl font-bold">Form will be start at </span> <span className="text-base">{makeVisibleTime2(millisecondMaker(enabledDate, enabledTime))}</span></h2>
+                    <h2 className="flex flex-col text-center text-white"><span className="text-2xl font-bold">Form will be start at </span> <span className="text-base">{makeVisibleTime2(millisecondMaker(enabledDate, enabledTime))}</span></h2>
                 </div> : <FillUpFormInputFields inputFields={inputFields} userEmail={userEmail}
-                    _id={_id} />
+                    _id={_id} alreadyFilledUpData={alreadyFilledUpData} />
             }
         </div>
     );

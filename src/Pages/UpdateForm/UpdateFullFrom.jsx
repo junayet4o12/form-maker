@@ -11,6 +11,7 @@ import AddFieldModal from "./AddFieldModal";
 import { PiSelectionBackgroundLight } from "react-icons/pi";
 import defaultFormBg from '../../assets/bannerImg.jpg'
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 const UpdateFullForm = ({ formDetails, refetch }) => {
     const { user } = useAuth()
     const [openModal, setOpenModal] = useState(false)
@@ -46,14 +47,15 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
     }
     const handleFormTitle = (e) => {
         e.preventDefault();
-        setFormTitle(e.target.value)
+        setFormTitle(e.target.value.slice(0, 70))
     }
     const handleFormDescription = (e) => {
         e.preventDefault();
-        setFormDescription(e.target.value)
+        setFormDescription(e.target.value.slice(0, 200))
     }
     const handleUpdate = async () => {
         let formBgImg = '';
+        const toastId = toast.loading("Updating...");
         if (formBgPlaceholder === defaultFormBg) {
             formBgImg = defaultFormBgLiveLink
         }
@@ -67,7 +69,12 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
                     'content-type': 'multipart/form-data'
                 }
             })
-            formBgImg = res?.data?.data?.display_url
+            try {
+                formBgImg = res?.data?.data?.display_url
+            }
+            catch (err) {
+                toast.error(err?.message, { id: toastId });
+            }
         }
         const data = {
             formBgImg,
@@ -81,7 +88,9 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
         }
         axiosSecure.put(`/updateForm/${formDetails?._id}`, data)
             .then(res => {
+                
                 if (res.status == 200) {
+                    toast.success("Form Updated Successfully!!", { id: toastId });
                     Swal.fire({
                         icon: "success",
                         title: "Form updated Successfully",
@@ -92,87 +101,95 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
                 }
 
             })
+            .catch(err => {
+                toast.error(err?.message, { id: toastId });
+            })
     }
     return (
-        <div className={`transition-all duration-500 w-full`}>
+        <div className={`transition-all duration-500 w-full max-w-[700px] mx-auto`}>
 
             <div className='flex gap-4 flex-col mb-4'>
-                <div className="w-full min-w-[200px] max-w-[500px] flex flex-col gap-2 relative mx-auto">
-                    <label className="text-3xl">Form Background Image</label>
+                <div className="w-full min-w-[200px]  flex flex-col gap-2 relative mx-auto">
+                    <label className="text-3xl text-white">Form Background Image</label>
                     <input
                         ref={fileInput}
                         className='hidden'
                         onChange={handleFileChange}
-                        type="file" name="productImage" id="image" />
+                        type="file"
+
+                        accept="image/jpeg, image/png"
+                        name="productImage" id="image" />
                     <div className='relative'>
                         <img onClick={handleFormBg} className='w-full  object-cover h-[200px] cursor-pointer' src={formBgPlaceholder} alt="" />
                         <button onClick={() => {
                             setFormBgPlaceholder(defaultFormBg)
                         }} className="transition-all duration-300 p-1 rounded-sm hover:rounded-md font-bold active:scale-90 flex flex-col justify-center items-center text-xs bg-primary/80 hover:bg-primary text-white  w-max absolute top-5 right-5 border-none">Default Img <span className="text-2xl"><PiSelectionBackgroundLight /></span></button>
                     </div>
-                    <label className="text-3xl">Form Title</label>
+                    <label className="text-3xl text-white">Form Title</label>
                     <input
                         onChange={handleFormTitle}
                         value={formTitle}
                         placeholder="Title"
-                        className="input input-primary h-[60px] text-3xl"
+                        className="input input-error bg-black/20 text-white border border-primary h-[60px] text-3xl rounded-sm"
                     />
+                    <p className="text-white">{formTitle?.length}/70</p>
                 </div>
-                <div className="relative w-full min-w-[200px] max-w-[500px] flex flex-col gap-2 mx-auto">
-                    <label className="text-3xl">Form Description</label>
+                <div className="relative w-full min-w-[200px]  flex flex-col gap-2 mx-auto">
+                    <label className="text-3xl text-white">Form Description</label>
                     <textarea
                         onChange={handleFormDescription}
                         value={formDescription}
                         label=" Form Description"
                         placeholder="Description"
-                        className="textarea textarea-primary h-[100px] text-lg"
+                        className="textarea textarea-error bg-black/20 text-white border border-primary h-[100px] text-lg rounded-sm"
                     />
+                    <p className="text-white">{formDescription?.length}/200</p>
                 </div>
-                <div className="relative min-w-[200px] max-w-[500px] flex flex-col gap-2 mx-auto w-full">
-                    <label className="text-3xl">Form enabled time</label>
+                <div className="relative min-w-[200px]  flex flex-col gap-2 mx-auto w-full">
+                    <label className="text-3xl text-white">Form enabled time</label>
                     <div className="grid grid-cols-2 gap-2">
                         <div className="flex flex-col gap-2">
-                            <label className="text-base">Date</label>
+                            <label className="text-base text-white">Date</label>
                             <input value={enabledDate}
                                 onChange={(e) => {
                                     e.preventDefault()
                                     setEnabledDate(e.target.value)
                                 }}
-                                type="date" className="input input-primary h-[40px] text-base" />
+                                type="date" className="input input-error bg-black/20 text-white border border-primary h-[40px] text-base rounded-sm" />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <label className="text-base">Time</label>
+                            <label className="text-base text-white">Time</label>
                             <input value={enabledTime}
                                 onChange={(e) => {
                                     e.preventDefault()
                                     setEnabledTime(e.target.value)
                                 }}
-                                type="time" className="input input-primary h-[40px] text-base" />
+                                type="time" className="input input-error bg-black/20 text-white border border-primary h-[40px] text-base rounded-sm" />
                         </div>
                     </div>
                 </div>
-                <div className="relative min-w-[200px] max-w-[500px] flex flex-col gap-2 mx-auto w-full">
-                    <label className="text-3xl">Form disabled time</label>
+                <div className="relative min-w-[200px]  flex flex-col gap-2 mx-auto w-full">
+                    <label className="text-3xl text-white">Form disabled time</label>
                     <div className="grid grid-cols-2 gap-2">
                         <div className="flex flex-col gap-2">
-                            <label className="text-base">Date</label>
+                            <label className="text-base text-white">Date</label>
                             <input
                                 value={disabledDate}
                                 onChange={(e) => {
                                     e.preventDefault()
                                     setDisabledDate(e.target.value)
                                 }}
-                                type="date" className="input input-primary h-[40px] text-base" />
+                                type="date" className="input input-error bg-black/20 text-white border border-primary h-[40px] text-base rounded-sm" />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <label className="text-base">Time</label>
+                            <label className="text-base text-white">Time</label>
                             <input
                                 value={disabledTime}
                                 onChange={(e) => {
                                     e.preventDefault()
                                     setDisabledTime(e.target.value)
                                 }}
-                                type="time" className="input input-primary h-[40px] text-base" />
+                                type="time" className="input input-error bg-black/20 text-white border border-primary h-[40px] text-base rounded-sm" />
                         </div>
                     </div>
                 </div>
@@ -181,15 +198,17 @@ const UpdateFullForm = ({ formDetails, refetch }) => {
                 {
                     inputFields.map(inputField => <UpdateFormInputField key={inputField.id} inputField={inputField} setInputFields={setInputFields} inputFields={inputFields} />)
                 }
-                <p onClick={() => setOpenModal(true)} className=" w-full mx-auto btn text-3xl bg-secondary/80 text-white hover:bg-secondary max-w-[500px]">
-                    <span className="text-xl">Add field</span>   <FaRegSquarePlus />
-                </p>
-                <div className=" max-w-[500px] mx-auto flex justify-center items-center gap-5">
-                    <button
-                        disabled={formTitle ? inputFields.length > 0 ? enabledDate && enabledTime && disabledDate && disabledTime ? false : true : true : true}
-                        onClick={handleUpdate}
-                        className={`btn btn-primary bg-secondary/80 border-none hover:bg-secondary w-full my-5`}>Update Form</button>
-                    <button onClick={() => navigate(-1)} className={`btn btn-primary bg-primary/80 border-none hover:bg-primary w-full my-5  ${formTitle ? `${inputFields.length > 0 ? 'scale-x-100' : 'scale-x-0'}` : 'scale-x-0'} `}>Cancel</button>
+                <div className='py-3 px-5 rounded-sm space-y-5 bg-black/20 border border-primary'>
+                    <p onClick={() => setOpenModal(true)} className=" w-full mx-auto btn text-3xl border border-primary/80 hover:border-primary bg-primary/10 text-white hover:bg-primary/20 rounded-sm">
+                        <span className="text-xl">Add field</span>   <FaRegSquarePlus />
+                    </p>
+                    <div className="  mx-auto grid grid-cols-2 justify-center items-center gap-x-5">
+                        <button
+                            disabled={formTitle ? inputFields.length > 0 ? enabledDate && enabledTime && disabledDate && disabledTime ? false : true : true : true}
+                            onClick={handleUpdate}
+                            className={`btn btn-primary bg-primary/90 border-none hover:bg-primary   rounded-sm w-full`}>Update Form</button>
+                        <button onClick={() => navigate(-1)} className={`btn btn-primary border border-primary/80 hover:border-primary bg-primary/10 text-white hover:bg-primary/20 w-full   ${formTitle ? `${inputFields.length > 0 ? 'scale-x-100' : 'scale-x-0'}` : 'scale-x-0'} rounded-sm w-full`}>Cancel</button>
+                    </div>
                 </div>
             </div>
             <AddFieldModal open={openModal} setOpen={setOpenModal} inputFields={inputFields} setInputFields={setInputFields} />
